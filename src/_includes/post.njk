@@ -1,0 +1,15 @@
+---
+layout: base.njk
+ogType: article
+---
+<article class="article">
+  <a class="back" href="/blog/">← Semua Artikel</a>
+  <div class="pmeta" style="margin-top:28px">
+    <time datetime="{{ date | isoDate }}">{{ date | tanggal }}</time> · {{ content | bacaMenit }} menit baca
+  </div>
+  <h1>{{ title }}</h1>
+  {% if description %}<p class="lead">{{ description }}</p>{% endif %}
+  {% if image %}<img class="cover" src="{{ image }}" alt="{{ title }}">{% endif %}
+  <div class="prose">{{ content | safe }}</div>
+  {% if tags %}<div class="tags">{% for t in tags %}{% if t != "post" %}<span>{{ t }}</span>{% endif %}{% endfor %}</div>{% endif %}
+</article>

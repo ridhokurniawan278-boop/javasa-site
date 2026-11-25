@@ -1,0 +1,1846 @@
+<html lang="id" style="--navy: #0f1e35; --navy-mid: #162840; --navy-light: #1e3656; --gold: #c8a45a; --gold-light: #e2c47e;"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<title id="page-title">Javasahevaraya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f1e35;--navy-mid:#162840;--navy-light:#1e3656;
+  --gold:#c8a45a;--gold-light:#e2c47e;
+  --white:#ffffff;--off-white:#f9f6f1;--muted:#8a9ab0;
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-b:'Jost',sans-serif;
+}
+
+/* ── SLIDESHOW ── */
+.hero-slideshow{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-slideshow-overlay{position:absolute;inset:0;background:rgba(10,20,40,.62);z-index:1}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;background-size:cover;background-position:center}
+.hero-slide.active{opacity:1}
+.hero-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.slide-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+.slide-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;transition:background .3s;padding:0}
+.slide-dot.active{background:var(--gold)}
+.slide-arrows{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 20px;z-index:10;pointer-events:none}
+.slide-arrow{background:rgba(200,164,90,.2);border:1px solid rgba(200,164,90,.4);color:var(--gold);width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:all;transition:background .2s;font-size:18px}
+.slide-arrow:hover{background:rgba(200,164,90,.35)}
+.hero .hero-content{z-index:2;position:relative}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--navy);color:var(--white);overflow-x:hidden}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--navy-mid);border-bottom:1px solid rgba(200,164,90,.2);padding:8px 60px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.topbar-left{display:flex;gap:24px}
+.topbar-right{display:flex;gap:10px}
+.sdot{width:26px;height:26px;border:1px solid rgba(200,164,90,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold);cursor:pointer;text-decoration:none;transition:background .2s}
+.sdot:hover{background:rgba(200,164,90,.15)}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(15,30,53,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,164,90,.15);padding:18px 60px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:var(--font-d);font-size:24px;font-weight:600;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo span{color:var(--gold)}
+.logo-img{height:40px;width:auto;max-width:160px;object-fit:contain;display:none}
+.logo-img.visible{display:block}
+.logo-text-wrap{display:flex;align-items:center}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:13px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75);text-decoration:none;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+.btn-appt{background:var(--gold);color:var(--navy);font-family:var(--font-b);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 24px;border:none;cursor:pointer;text-decoration:none;transition:background .2s}
+.btn-appt:hover{background:var(--gold-light)}
+.lang-switch{display:flex;align-items:center;gap:2px;margin-right:20px;border:1px solid rgba(200,164,90,.35);border-radius:20px;padding:3px}
+#lang-switch-top{margin-right:0}
+#lang-switch-top .lang-btn{padding:2px 9px;font-size:10px}
+.lang-btn{background:transparent;border:none;color:rgba(255,255,255,.6);font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.05em;padding:5px 12px;border-radius:16px;cursor:pointer;transition:all .2s}
+.lang-btn.active{background:var(--gold);color:var(--navy)}
+.lang-btn:not(.active):hover{color:var(--white)}
+@media(max-width:768px){.lang-switch{margin-right:12px}.lang-btn{padding:4px 9px;font-size:10px}}
+
+/* ── HERO ── */
+.hero{position:relative;display:flex;align-items:center;overflow:hidden;background:linear-gradient(120deg,#0a1628 0%,#0f1e35 50%,#162840 100%)}
+.hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(200,164,90,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,164,90,.04) 1px,transparent 1px);background-size:80px 80px}
+.hero-circle{position:absolute;width:700px;height:700px;border-radius:50%;border:1px solid rgba(200,164,90,.06);right:-150px;top:50%;transform:translateY(-50%)}
+.hero-circle::before{content:'';position:absolute;inset:60px;border-radius:50%;border:1px solid rgba(200,164,90,.08)}
+.hero-content{position:relative;padding:0 60px;max-width:700px;animation:fadeUp 1s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:40px;height:1px;background:var(--gold)}
+.hero h1{font-family:var(--font-d);font-size:clamp(42px,6vw,78px);font-weight:500;line-height:1.1;margin-bottom:28px}
+.hero h1 em{font-style:italic;color:var(--gold-light)}
+.hero-desc{font-size:16px;font-weight:300;line-height:1.8;color:rgba(255,255,255,.65);max-width:520px;margin-bottom:44px}
+.hero-actions{display:flex;gap:16px;align-items:center}
+.btn-primary{background:var(--gold);color:var(--navy);font-family:var(--font-b);font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:16px 36px;text-decoration:none;display:inline-block;transition:background .2s,transform .15s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{color:var(--white);font-family:var(--font-b);font-size:13px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;padding:16px 36px;border:1px solid rgba(255,255,255,.3);text-decoration:none;display:inline-block;transition:border-color .2s,color .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-stats{position:absolute;bottom:60px;right:60px;display:flex;gap:48px;animation:fadeUp 1s .3s ease both}
+.stat-num{font-family:var(--font-d);font-size:42px;font-weight:500;color:var(--gold);line-height:1}
+.stat-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:4px;text-align:right}
+
+/* ── INFO STRIP ── */
+.info-strip{background:var(--navy-mid);border-top:1px solid rgba(200,164,90,.2);border-bottom:1px solid rgba(200,164,90,.2);display:grid;grid-template-columns:repeat(4,1fr)}
+.info-item{padding:32px 24px;border-right:1px solid rgba(200,164,90,.12);display:flex;gap:16px;align-items:flex-start}
+.info-item:last-child{border-right:none}
+.iicon{width:40px;height:40px;border:1px solid rgba(200,164,90,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.iicon svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.ilabel{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#fff;margin-bottom:6px}
+.ival{font-size:14px;color:var(--white);line-height:1.5}
+
+/* ── SECTIONS ── */
+section{padding:100px 60px}
+.sec-eyebrow{font-size:11px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.sec-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
+.sec-title{font-family:var(--font-d);font-size:clamp(32px,4vw,52px);font-weight:500;line-height:1.15}
+.sec-title em{font-style:italic;color:var(--gold-light)}
+
+/* ── ABOUT ── */
+#about{background:var(--navy)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-img-wrap{position:relative}
+.about-img-box{width:100%;background:var(--navy-light);border:1px solid rgba(200,164,90,.2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:16px;color:var(--muted);font-style:italic;overflow:hidden;position:relative}
+.about-img-box img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.about-accent{position:absolute;width:180px;height:180px;border:1px solid rgba(200,164,90,.3);bottom:-24px;right:-24px}
+.about-badge{position:absolute;bottom:32px;left:-32px;background:var(--gold);color:var(--navy);padding:20px 24px;width:140px}
+.ab-num{font-family:var(--font-d);font-size:36px;font-weight:600;line-height:1}
+.ab-text{font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+.about-text{padding-left:20px}
+.about-desc{font-size:16px;font-weight:300;line-height:1.9;color:rgba(255,255,255,.65);margin:24px 0 24px}
+.about-values{margin:0 0 28px;padding-left:16px;border-left:2px solid var(--gold);color:#fff;font-size:14px;line-height:1.6;letter-spacing:.035em}
+.about-values strong{color:var(--gold-light);font-weight:500}
+.about-features{list-style:none;display:flex;flex-direction:column;gap:14px}
+.about-features li{font-size:14px;color:rgba(255,255,255,.8);display:flex;gap:12px;align-items:flex-start}
+.about-features li::before{content:'—';color:var(--gold);flex-shrink:0}
+
+/* ── SERVICES ── */
+#services{background:var(--navy-mid)}
+.svc-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.svc-card{background:var(--navy-light);padding:44px 36px;border:1px solid rgba(200,164,90,.1);transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .4s}
+.svc-card:hover{border-color:rgba(200,164,90,.3);transform:translateY(-4px)}
+.svc-card:hover::before{width:100%}
+.svc-num{font-family:var(--font-d);font-size:56px;font-weight:500;color:#fff;line-height:1;margin-bottom:24px}
+.svc-icon{margin-bottom:20px}
+.svc-icon svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:1.2}
+.svc-name{font-family:var(--font-d);font-size:22px;font-weight:500;margin-bottom:14px}
+.svc-desc{font-size:14px;font-weight:300;line-height:1.8;color:#fff;margin-bottom:28px}
+.svc-link{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:flex;gap:8px;align-items:center}
+.svc-link::after{content:'→';transition:transform .2s}
+.svc-link:hover::after{transform:translateX(4px)}
+
+
+
+/* ── CTA ── */
+.cta-banner{background:var(--navy-light);border-top:1px solid rgba(200,164,90,.2);border-bottom:1px solid rgba(200,164,90,.2);padding:80px 60px;display:flex;justify-content:space-between;align-items:center;gap:40px}
+.cta-text{font-family:var(--font-d);font-size:clamp(28px,4vw,48px);font-weight:500;max-width:600px;line-height:1.2}
+.cta-text em{font-style:italic;color:var(--gold-light)}
+
+/* ── CONTACT ── */
+#contact{background:var(--navy-mid)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px}
+.ci-items{margin-top:36px;display:flex;flex-direction:column;gap:28px}
+.ci-item{display:flex;gap:20px;align-items:flex-start}
+.ci-icon{width:48px;height:48px;flex-shrink:0;border:1px solid rgba(200,164,90,.35);display:flex;align-items:center;justify-content:center}
+.ci-icon svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.ci-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#fff;margin-bottom:6px}
+.ci-value{font-size:14px;line-height:1.6}
+.ci-value a,.ival a{color:#fff;text-decoration:none}
+.ci-value a:hover,.ival a:hover{text-decoration:underline}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.ffield{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.ffield label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.ffield input,.ffield textarea,.ffield select{background:var(--navy-light);border:1px solid rgba(200,164,90,.2);color:var(--white);font-family:var(--font-b);font-size:14px;padding:14px 16px;outline:none;transition:border-color .2s;width:100%}
+.ffield input::placeholder,.ffield textarea::placeholder{color:rgba(255,255,255,.25)}
+.ffield input:focus,.ffield textarea:focus{border-color:var(--gold)}
+.ffield textarea{resize:vertical;min-height:120px}
+
+/* ── FOOTER ── */
+footer{background:#080f1d;padding:60px 60px 30px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:48px;border-bottom:1px solid rgba(200,164,90,.12);margin-bottom:28px}
+.f-logo{font-family:var(--font-d);font-size:26px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.f-logo span{color:var(--gold)}
+.f-logo-img{height:36px;width:auto;max-width:140px;object-fit:contain;display:none}
+.f-logo-img.visible{display:block}
+.f-tagline{font-size:14px;font-weight:300;color:var(--muted);line-height:1.7;max-width:260px}
+.f-col-title{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--white)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.3)}
+.f-socials{display:flex;gap:12px}
+
+/* ── MOBILE ── */
+/* ── RESPONSIVE IMAGES (semua gambar auto-fit) ── */
+img { max-width: 100%; height: auto; display: block; }
+.hero-slide img,
+.about-img-box img,
+.photo-preview img,
+.slide-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Hero: tinggi adaptif berdasarkan viewport */
+.hero { min-height: clamp(400px, 92vh, 1000px); }
+
+/* About image: aspect ratio adaptif */
+.about-img-box { aspect-ratio: 4/5; }
+
+@media(max-width:1024px){
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .about-img-box { aspect-ratio: 3/2; }
+}
+
+@media(max-width:768px){
+  .topbar{justify-content:flex-end}
+  .topbar-left{display:none}
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  section{padding:60px 24px}
+  .hero-content{padding:0 24px}
+  .hero-stats{display:none}
+  .hero{ min-height: clamp(300px, 70vh, 600px); }
+  .about-img-box { aspect-ratio: 16/9; }
+  .info-strip{grid-template-columns:1fr 1fr}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .about-badge{display:none}
+  .svc-grid{grid-template-columns:1fr}
+  .cta-banner{flex-direction:column;text-align:center;padding:60px 24px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+  .svc-header{flex-direction:column;gap:24px;align-items:flex-start}
+  .form-row{grid-template-columns:1fr}
+  /* CMS panel full-width di mobile */
+  #cms-panel{width:100%;border-left:none;border-top:1px solid rgba(200,164,90,.25)}
+}
+
+@media(max-width:480px){
+  .hero{ min-height: clamp(280px, 60vh, 500px); }
+  .about-img-box { aspect-ratio: 4/3; }
+  .info-strip{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+}
+
+/* ══════════════════════════════
+   CMS ADMIN PANEL
+══════════════════════════════ */
+#cms-trigger{position:fixed;bottom:24px;right:24px;z-index:9999;width:48px;height:48px;background:var(--gold);border:none;border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .2s}
+#cms-trigger:hover{transform:scale(1.1)}
+#cms-trigger svg{width:22px;height:22px;stroke:var(--navy);fill:none;stroke-width:2}
+
+#cms-overlay{display:none;position:fixed;inset:0;background:rgba(5,12,24,.85);z-index:10000;backdrop-filter:blur(6px)}
+#cms-overlay.open{display:flex}
+
+#cms-panel{width:480px;background:#0d1b2e;border-left:1px solid rgba(200,164,90,.25);height:100%;margin-left:auto;display:flex;flex-direction:column;animation:slideIn .3s ease}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+
+.cms-header{padding:24px 28px;border-bottom:1px solid rgba(200,164,90,.15);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.cms-title{font-family:var(--font-d);font-size:20px;font-weight:500;color:var(--white)}
+.cms-title span{color:var(--gold)}
+.cms-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:4px;transition:color .2s}
+.cms-close:hover{color:var(--white)}
+
+.cms-tabs{display:flex;padding:16px 28px 0;gap:4px;border-bottom:1px solid rgba(200,164,90,.1);flex-shrink:0}
+.ctab{padding:8px 14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font-b)}
+.ctab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+.cms-body{flex:1;overflow-y:auto;padding:24px 28px}
+.cms-section{display:none}
+.cms-section.active{display:block}
+
+.cms-field{margin-bottom:20px}
+.cms-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+.cms-input,.cms-textarea{width:100%;background:#162840;border:1px solid rgba(200,164,90,.15);color:var(--white);font-family:var(--font-b);font-size:13px;padding:10px 14px;outline:none;transition:border-color .2s;border-radius:0}
+.cms-input:focus,.cms-textarea:focus{border-color:var(--gold)}
+.cms-input::placeholder,.cms-textarea::placeholder{color:rgba(255,255,255,.2)}
+.cms-textarea{resize:vertical;min-height:80px;line-height:1.6}
+
+.cms-card{background:#162840;border:1px solid rgba(200,164,90,.1);border-radius:4px;padding:16px;margin-bottom:12px}
+.cms-card-title{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+
+.cms-save{width:100%;background:var(--gold);color:var(--navy);border:none;font-family:var(--font-b);font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:14px;cursor:pointer;transition:background .2s;margin-top:8px}
+.cms-save:hover{background:var(--gold-light)}
+
+.cms-toast{position:fixed;bottom:90px;right:24px;background:#1D9E75;color:#fff;font-size:13px;padding:12px 20px;border-radius:4px;z-index:99999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
+.cms-toast.show{opacity:1;transform:translateY(0)}
+
+.cms-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.add-btn{width:100%;background:none;border:1px dashed rgba(200,164,90,.3);color:var(--gold);font-family:var(--font-b);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:10px;cursor:pointer;transition:border-color .2s,background .2s;margin-top:4px}
+.add-btn:hover{border-color:var(--gold);background:rgba(200,164,90,.05)}
+.rm-btn{background:none;border:none;color:rgba(255,80,80,.6);cursor:pointer;font-size:16px;line-height:1;padding:2px 6px;transition:color .2s}
+.rm-btn:hover{color:#ff5050}
+.cms-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+
+.cms-img-hint{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5}
+.cms-divider{border:none;border-top:1px solid rgba(200,164,90,.1);margin:20px 0}
+/* Logo upload */
+.logo-upload-preview{width:100%;height:80px;background:#0d1b2e;border:1px dashed rgba(200,164,90,.3);display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:border-color .2s;overflow:hidden;position:relative;border-radius:2px}
+.logo-upload-preview:hover{border-color:var(--gold)}
+.logo-upload-preview img{max-height:60px;max-width:90%;object-fit:contain;position:relative;z-index:1}
+.logo-upload-preview span{font-size:11px;color:var(--muted);position:relative;z-index:1}
+.logo-mode-toggle{display:flex;gap:8px;margin-bottom:12px}
+.logo-mode-btn{flex:1;padding:7px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-family:var(--font-b);border:1px solid rgba(200,164,90,.2);background:none;color:var(--muted);cursor:pointer;transition:all .2s;border-radius:2px}
+.logo-mode-btn.active{background:rgba(200,164,90,.12);border-color:var(--gold);color:var(--gold)}
+
+/* Photo upload */
+.photo-upload-wrap{position:relative;margin-bottom:8px}
+.photo-preview{width:100%;height:120px;background:#0d1b2e;border:1px dashed rgba(200,164,90,.3);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:pointer;transition:border-color .2s;overflow:hidden;position:relative}
+.photo-preview:hover{border-color:var(--gold)}
+.photo-preview img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.photo-preview-label{font-size:11px;color:var(--muted);text-align:center;line-height:1.5;position:relative;z-index:1;background:rgba(13,27,46,.7);padding:4px 8px;border-radius:2px}
+.photo-preview svg{width:24px;height:24px;stroke:rgba(200,164,90,.4);fill:none;stroke-width:1.5;position:relative;z-index:1}
+.photo-input-hidden{display:none}
+
+/* Color picker */
+.color-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px}
+.color-label-wrap{flex:1}
+.color-label-wrap .cms-label{margin-bottom:2px}
+.color-desc{font-size:10px;color:rgba(138,154,176,.7);line-height:1.4}
+.color-swatch-wrap{display:flex;align-items:center;gap:8px}
+.color-swatch{width:36px;height:36px;border:1px solid rgba(200,164,90,.3);border-radius:3px;cursor:pointer;padding:2px;background:none;overflow:hidden}
+.color-swatch input[type=color]{width:150%;height:150%;margin:-25%;border:none;cursor:pointer;background:none;padding:0}
+.color-hex{width:80px;background:#162840;border:1px solid rgba(200,164,90,.15);color:var(--white);font-family:var(--font-b);font-size:12px;padding:8px 10px;outline:none;text-transform:uppercase}
+.color-hex:focus{border-color:var(--gold)}
+.color-preview-bar{height:4px;border-radius:2px;margin-bottom:20px;display:flex;overflow:hidden;gap:2px}
+.color-preview-bar div{flex:1;height:100%}
+.cms-btn-reset{background:none;border:1px dashed rgba(200,164,90,.25);color:rgba(200,164,90,.6);font-family:var(--font-b);font-size:11px;letter-spacing:.08em;padding:8px;width:100%;cursor:pointer;transition:all .2s;margin-bottom:12px}
+.cms-btn-reset:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Slideshow CMS */
+.slide-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.slide-item-cms{background:#162840;border:1px solid rgba(200,164,90,.15);border-radius:4px;padding:12px;position:relative}
+.slide-item-cms .rm-btn{position:absolute;top:8px;right:8px}
+.slide-thumb{width:100%;height:64px;background:#0d1b2e;border:1px dashed rgba(200,164,90,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;position:relative;margin-bottom:8px;transition:border-color .2s}
+.slide-thumb:hover{border-color:var(--gold)}
+.slide-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.slide-thumb span{font-size:10px;color:var(--muted);position:relative;z-index:1}
+.cms-slideshow-mode{display:flex;gap:8px;margin-bottom:16px}
+.slide-mode-btn{flex:1;padding:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-family:var(--font-b);border:1px solid rgba(200,164,90,.2);background:none;color:var(--muted);cursor:pointer;transition:all .2s}
+.slide-mode-btn.active{background:rgba(200,164,90,.12);border-color:var(--gold);color:var(--gold)}
+
+/* Export button */
+.cms-export{width:100%;background:transparent;color:var(--gold);border:1px solid rgba(200,164,90,.4);font-family:var(--font-b);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:12px;cursor:pointer;transition:all .2s;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px}
+.cms-export:hover{background:rgba(200,164,90,.08);border-color:var(--gold)}
+.cms-export svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.cms-section-title{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:20px 0 12px;padding-bottom:8px;border-bottom:1px solid rgba(200,164,90,.1)}
+</style>
+</head>
+<body>
+
+<!-- CMS TRIGGER BUTTON -->
+<button id="cms-trigger" onclick="openCMS()" title="Buka Panel Admin">
+  <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+</button>
+
+<!-- CMS OVERLAY -->
+<div id="cms-overlay" onclick="handleOverlayClick(event)">
+  <div id="cms-panel">
+    <div class="cms-header">
+      <div class="cms-title">Admin <span>Panel</span></div>
+      <button class="cms-close" onclick="closeCMS()">✕</button>
+    </div>
+    <div class="cms-tabs">
+      <button class="ctab active" onclick="cmsTab('umum',this)">Umum</button>
+      <button class="ctab" onclick="cmsTab('hero',this)">Hero</button>
+      <button class="ctab" onclick="cmsTab('warna',this)">🎨 Warna</button>
+      <button class="ctab" onclick="cmsTab('media',this)">🖼 Media</button>
+      <button class="ctab" onclick="cmsTab('layanan',this)">Layanan</button>
+      <button class="ctab" onclick="cmsTab('kontak',this)">Kontak</button>
+    </div>
+    <div class="cms-body">
+
+      <!-- UMUM -->
+      <div id="cms-umum" class="cms-section active">
+        <div class="cms-field">
+          <label class="cms-label">Nama Bisnis</label>
+          <input class="cms-input" id="c-bizname" placeholder="NamaBisnis" oninput="previewLogoText()">
+        </div>
+
+        <div class="cms-field">
+          <label class="cms-label">Logo</label>
+          <div class="logo-mode-toggle">
+            <button class="logo-mode-btn" id="lmode-text" onclick="setLogoMode('text',this)">Teks</button>
+            <button class="logo-mode-btn active" id="lmode-image" onclick="setLogoMode('image',this)">🖼 Gambar / Foto</button>
+          </div>
+          <div id="logo-text-fields" style="display: none;">
+            <p class="cms-img-hint" style="margin-top:0;margin-bottom:8px">Logo otomatis dibuat dari Nama Bisnis di atas.</p>
+          </div>
+          <div id="logo-image-fields" style="display: block;">
+            <div class="logo-upload-preview" id="logo-preview" onclick="document.getElementById('logo-file-input').click()">
+              <span id="logo-preview-hint">✓ Logo terpilih — klik untuk ganti</span>
+            <img src="javasahevaraya_img1c.png" style="max-height: 56px; max-width: 90%; object-fit: contain;"></div>
+            <input type="file" id="logo-file-input" class="photo-input-hidden" accept="image/*,.svg" onchange="handleLogoUpload(this)">
+            <input class="cms-input" id="c-logo-url" placeholder="Atau tempel URL logo online..." oninput="previewLogoFromUrl(this.value)" style="margin-top:6px" data-src="javasahevaraya_img1c.png">
+            <p class="cms-img-hint">Rekomendasi: PNG transparan atau SVG, tinggi minimal 80px. Logo tampil di navbar &amp; footer.</p>
+            <div class="cms-field" style="margin-top:12px;margin-bottom:0">
+              <label class="cms-label">Tinggi Logo (px)</label>
+              <input class="cms-input" id="c-logo-height" type="number" min="20" max="80" value="40" placeholder="40" oninput="updateLogoHeight(this.value)">
+            </div>
+          </div>
+        </div>
+        <hr class="cms-divider">
+        <div class="cms-field">
+          <label class="cms-label">Judul Tab Browser (Title)</label>
+          <input class="cms-input" id="c-pagetitle" placeholder="NamaBisnis — Professional Services">
+          <p class="cms-img-hint">Muncul di tab browser dan hasil pencarian Google.</p>
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Tagline / Slogan</label>
+          <input class="cms-input" id="c-tagline" placeholder="Fighting for Your Rights with Integrity">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Tahun Berdiri</label>
+          <input class="cms-input" id="c-year" placeholder="2010">
+        </div>
+        <hr class="cms-divider">
+        <div class="cms-section-title">Judul Section Website</div>
+        <div class="cms-field">
+          <label class="cms-label">Label Eyebrow — Tentang</label>
+          <input class="cms-input" id="c-sec-about" placeholder="Tentang Kami">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Label Eyebrow — Layanan</label>
+          <input class="cms-input" id="c-sec-services" placeholder="Layanan Kami">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Judul Section Layanan (baris 1)</label>
+          <input class="cms-input" id="c-svc-h1" placeholder="Apa yang Dapat">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Judul Section Layanan (kata italic)</label>
+          <input class="cms-input" id="c-svc-h2" placeholder="Bantu">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Teks CTA Banner</label>
+          <input class="cms-input" id="c-cta-text" placeholder="Siap Memulai?">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Teks CTA Banner (kata italic)</label>
+          <input class="cms-input" id="c-cta-em" placeholder="Konsultasi Gratis">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Teks Tombol Navbar</label>
+          <input class="cms-input" id="c-navbtn" placeholder="Konsultasi">
+        </div>
+        <hr class="cms-divider">
+        <div class="cms-field">
+          <label class="cms-label">Statistik 1 — Angka</label>
+          <input class="cms-input" id="c-s1n" placeholder="15+">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Statistik 1 — Label</label>
+          <input class="cms-input" id="c-s1l" placeholder="Tahun Pengalaman">
+        </div>
+        <div class="cms-grid2">
+          <div class="cms-field">
+            <label class="cms-label">Statistik 2 — Angka</label>
+            <input class="cms-input" id="c-s2n" placeholder="500+">
+          </div>
+          <div class="cms-field">
+            <label class="cms-label">Statistik 2 — Label</label>
+            <input class="cms-input" id="c-s2l" placeholder="Klien Puas">
+          </div>
+        </div>
+        <div class="cms-grid2">
+          <div class="cms-field">
+            <label class="cms-label">Statistik 3 — Angka</label>
+            <input class="cms-input" id="c-s3n" placeholder="98%">
+          </div>
+          <div class="cms-field">
+            <label class="cms-label">Statistik 3 — Label</label>
+            <input class="cms-input" id="c-s3l" placeholder="Tingkat Kepuasan">
+          </div>
+        </div>
+        <button class="cms-save" onclick="saveAll()">Simpan Perubahan</button>
+        <button class="cms-export" onclick="exportHTML()">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download HTML untuk Netlify
+        </button>
+      </div>
+
+      <!-- HERO -->
+      <div id="cms-hero" class="cms-section">
+        <div class="cms-field">
+          <label class="cms-label">Judul Hero (baris 1)</label>
+          <input class="cms-input" id="c-h1" placeholder="Solusi">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Judul Hero (kata italic / emas)</label>
+          <input class="cms-input" id="c-h2" placeholder="Terpercaya">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Judul Hero (baris 3)</label>
+          <input class="cms-input" id="c-h3" placeholder="sebagai mitra global Anda">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Deskripsi Hero</label>
+          <textarea class="cms-textarea" id="c-hdesc" placeholder="Kami hadir dengan keahlian..."></textarea>
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Teks Tombol Utama</label>
+          <input class="cms-input" id="c-hbtn1" placeholder="Lihat Layanan">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Teks Tombol Kedua</label>
+          <input class="cms-input" id="c-hbtn2" placeholder="Hubungi Kami">
+        </div>
+        <hr class="cms-divider">
+        <div class="cms-section-title">Foto Kantor / Tim (Section Tentang)</div>
+        <div class="cms-field">
+          <label class="cms-label">Upload Foto Kantor / Tim</label>
+          <div class="photo-upload-wrap">
+            <div class="photo-preview" id="about-photo-preview" onclick="document.getElementById('about-photo-input').click()"><img src="javasahevaraya_img2.webp" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              <span class="photo-preview-label" style="opacity: 0.7;">Klik untuk upload foto<br>(JPG, PNG — maks 5MB)</span>
+            </div>
+            <input type="file" id="about-photo-input" class="photo-input-hidden" accept="image/*" onchange="handleAboutPhoto(this)">
+          </div>
+          <p class="cms-img-hint">Atau tempel URL foto online di bawah:</p>
+          <input class="cms-input" id="c-about-photo" placeholder="https://..." oninput="previewAboutPhotoFromUrl(this.value)" style="margin-top:6px">
+        </div>
+        <hr class="cms-divider">
+        <div class="cms-field">
+          <label class="cms-label">Tentang Kami — Judul</label>
+          <input class="cms-input" id="c-about-t1" placeholder="Kami Berkomitmen untuk">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Tentang Kami — Kata Italic</label>
+          <input class="cms-input" id="c-about-t2" placeholder="Kesuksesan">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Tentang Kami — Kata terakhir</label>
+          <input class="cms-input" id="c-about-t3" placeholder="Anda">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Deskripsi About</label>
+          <textarea class="cms-textarea" id="c-adesc" placeholder="NamaBisnis adalah firma profesional..."></textarea>
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Keunggulan 1</label>
+          <input class="cms-input" id="c-f1" placeholder="Tim ahli bersertifikat dan berpengalaman">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Keunggulan 2</label>
+          <input class="cms-input" id="c-f2" placeholder="Pendekatan personal yang disesuaikan">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Keunggulan 3</label>
+          <input class="cms-input" id="c-f3" placeholder="Track record terbukti 500+ klien">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Keunggulan 4</label>
+          <input class="cms-input" id="c-f4" placeholder="Konsultasi awal gratis">
+        </div>
+        <button class="cms-save" onclick="saveAll()">Simpan Perubahan</button>
+      </div>
+
+      <!-- WARNA -->
+      <div id="cms-warna" class="cms-section">
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6">Sesuaikan palet warna website-mu. Perubahan langsung tampil di preview.</p>
+        <div class="color-preview-bar" id="color-preview-bar">
+          <div id="cpb-navy" style="background: rgb(15, 30, 53);"></div>
+          <div id="cpb-navy-mid" style="background: rgb(22, 40, 64);"></div>
+          <div id="cpb-navy-light" style="background: rgb(30, 54, 86);"></div>
+          <div id="cpb-gold" style="background: rgb(200, 164, 90);"></div>
+          <div id="cpb-gold-light" style="background: rgb(226, 196, 126);"></div>
+        </div>
+
+        <div class="cms-section-title">Warna Latar</div>
+        <div class="color-row">
+          <div class="color-label-wrap"><div class="cms-label">Background Utama</div><div class="color-desc">Warna background halaman utama</div></div>
+          <div class="color-swatch-wrap">
+            <div class="color-swatch"><input type="color" id="cp-navy" oninput="updateColor('navy',this.value)"></div>
+            <input class="color-hex" id="ch-navy" maxlength="7" oninput="updateColorFromHex('navy',this.value)">
+          </div>
+        </div>
+        <div class="color-row">
+          <div class="color-label-wrap"><div class="cms-label">Background Tengah</div><div class="color-desc">Section layanan, panel CMS</div></div>
+          <div class="color-swatch-wrap">
+            <div class="color-swatch"><input type="color" id="cp-navy-mid" oninput="updateColor('navy-mid',this.value)"></div>
+            <input class="color-hex" id="ch-navy-mid" maxlength="7" oninput="updateColorFromHex('navy-mid',this.value)">
+          </div>
+        </div>
+        <div class="color-row">
+          <div class="color-label-wrap"><div class="cms-label">Background Card</div><div class="color-desc">Warna kartu layanan, team, dll</div></div>
+          <div class="color-swatch-wrap">
+            <div class="color-swatch"><input type="color" id="cp-navy-light" oninput="updateColor('navy-light',this.value)"></div>
+            <input class="color-hex" id="ch-navy-light" maxlength="7" oninput="updateColorFromHex('navy-light',this.value)">
+          </div>
+        </div>
+
+        <div class="cms-section-title">Warna Aksen</div>
+        <div class="color-row">
+          <div class="color-label-wrap"><div class="cms-label">Warna Aksen Utama</div><div class="color-desc">Tombol, garis, highlight teks</div></div>
+          <div class="color-swatch-wrap">
+            <div class="color-swatch"><input type="color" id="cp-gold" oninput="updateColor('gold',this.value)"></div>
+            <input class="color-hex" id="ch-gold" maxlength="7" oninput="updateColorFromHex('gold',this.value)">
+          </div>
+        </div>
+        <div class="color-row">
+          <div class="color-label-wrap"><div class="cms-label">Warna Aksen Terang</div><div class="color-desc">Hover tombol, teks italic hero</div></div>
+          <div class="color-swatch-wrap">
+            <div class="color-swatch"><input type="color" id="cp-gold-light" oninput="updateColor('gold-light',this.value)"></div>
+            <input class="color-hex" id="ch-gold-light" maxlength="7" oninput="updateColorFromHex('gold-light',this.value)">
+          </div>
+        </div>
+
+        <hr class="cms-divider">
+        <div class="cms-section-title">Preset Tema</div>
+        <div class="cms-grid2" style="margin-bottom:16px">
+          <button class="slide-mode-btn" onclick="applyPreset('navy')">🌊 Navy Gold (Default)</button>
+          <button class="slide-mode-btn" onclick="applyPreset('dark')">🖤 Dark Charcoal</button>
+          <button class="slide-mode-btn" onclick="applyPreset('forest')">🌿 Forest Green</button>
+          <button class="slide-mode-btn" onclick="applyPreset('maroon')">🍷 Maroon Elegant</button>
+          <button class="slide-mode-btn" onclick="applyPreset('slate')">🩶 Slate Blue</button>
+          <button class="slide-mode-btn" onclick="applyPreset('cream')">🌾 Cream &amp; Bronze</button>
+        </div>
+        <button class="cms-btn-reset" onclick="resetColors()">↺ Reset ke Warna Default</button>
+        <button class="cms-save" onclick="saveAll()">Simpan Perubahan</button>
+      </div>
+
+      <!-- MEDIA / SLIDESHOW -->
+      <div id="cms-media" class="cms-section">
+        <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Tambahkan gambar atau slideshow di bagian Hero website-mu.</p>
+
+        <div class="cms-section-title">Mode Hero</div>
+        <div class="cms-slideshow-mode" style="margin-bottom:16px">
+          <button class="slide-mode-btn" id="mode-none" onclick="setHeroMode('none',this)">🎨 Gradien (Default)</button>
+          <button class="slide-mode-btn active" id="mode-image" onclick="setHeroMode('image',this)">🖼 Gambar Tunggal</button>
+          <button class="slide-mode-btn" id="mode-slideshow" onclick="setHeroMode('slideshow',this)">🎞 Slideshow</button>
+        </div>
+
+        <div id="media-single" style="display: block;">
+          <div class="cms-section-title">Gambar Hero</div>
+          <div class="cms-field">
+            <label class="cms-label">Upload Gambar</label>
+            <div class="slide-thumb" id="hero-img-thumb" onclick="document.getElementById('hero-img-file').click()" style="height:100px"><img src="javasahevaraya_img3.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="background:rgba(0,0,0,.5);padding:2px 6px;position:relative;z-index:1">✓ Gambar terpilih</span></div>
+            <input type="file" id="hero-img-file" class="photo-input-hidden" accept="image/*" onchange="handleHeroImage(this)">
+            <input class="cms-input" id="hero-img-url" placeholder="Atau tempel URL gambar online..." oninput="previewHeroImageUrl(this.value)" style="margin-top:6px" data-src="javasahevaraya_img3.jpg">
+          </div>
+          <div class="cms-field">
+            <label class="cms-label">Intensitas Overlay Gelap</label>
+            <input type="range" id="hero-overlay" min="0" max="90" value="62" oninput="updateOverlay(this.value)" style="width:100%;accent-color:var(--gold)">
+            <p class="cms-img-hint" id="hero-overlay-val">62% — sesuaikan agar teks tetap terbaca</p>
+          </div>
+        </div>
+
+        <div id="media-slideshow" style="display:none">
+          <div class="cms-section-title">Slide Gambar</div>
+          <div id="slide-list-cms" class="slide-list"><p style="font-size:11px;color:var(--muted);margin-bottom:8px">Belum ada slide. Klik "Tambah Slide" di bawah.</p></div>
+          <button class="add-btn" onclick="addSlide()">+ Tambah Slide</button>
+          <div class="cms-field" style="margin-top:14px">
+            <label class="cms-label">Kecepatan Slide (detik)</label>
+            <input class="cms-input" id="slide-speed" type="number" min="2" max="20" value="5" placeholder="5">
+          </div>
+          <div class="cms-field">
+            <label class="cms-label">Intensitas Overlay Gelap</label>
+            <input type="range" id="slide-overlay" min="0" max="90" value="62" oninput="updateSlideOverlay(this.value)" style="width:100%;accent-color:var(--gold)">
+            <p class="cms-img-hint" id="slide-overlay-val">62% — sesuaikan agar teks tetap terbaca</p>
+          </div>
+        </div>
+
+        <button class="cms-save" onclick="saveAll()">Simpan Perubahan</button>
+      </div>
+
+      <!-- LAYANAN -->
+      <div id="cms-layanan" class="cms-section">
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Edit hingga 3 layanan utama bisnis kamu.</p>
+        <div id="svc-list">
+    <div class="cms-card" id="svc-card-0">
+      <div class="cms-card-title">Layanan 1</div>
+      <div class="cms-field"><label class="cms-label">Nama Layanan</label>
+        <input class="cms-input" id="svc-name-0" value="Layanan Keimigrasian" placeholder="Nama layanan"></div>
+      <div class="cms-field"><label class="cms-label">Deskripsi</label>
+        <textarea class="cms-textarea" id="svc-desc-0" placeholder="Deskripsi layanan...">Pengurusan berbagai jenis visa dan izin tinggal untuk kebutuhan kunjungan, pekerjaan maupun tinggal jangka panjang di Indonesia</textarea></div>
+    </div>
+    <div class="cms-card" id="svc-card-1">
+      <div class="cms-card-title">Layanan 2</div>
+      <div class="cms-field"><label class="cms-label">Nama Layanan</label>
+        <input class="cms-input" id="svc-name-1" value="Izin Kerja dan Perizinan Tenaga Asing" placeholder="Nama layanan"></div>
+      <div class="cms-field"><label class="cms-label">Deskripsi</label>
+        <textarea class="cms-textarea" id="svc-desc-1" placeholder="Deskripsi layanan...">Layanan pengurusan izin kerja dan dokumen pendukung bagi tenaga kerja asing seusai regulasi yang berlaku di Indonesia</textarea></div>
+    </div>
+    <div class="cms-card" id="svc-card-2">
+      <div class="cms-card-title">Layanan 3</div>
+      <div class="cms-field"><label class="cms-label">Nama Layanan</label>
+        <input class="cms-input" id="svc-name-2" value="Konsultasi dan Dukungan Administratif" placeholder="Nama layanan"></div>
+      <div class="cms-field"><label class="cms-label">Deskripsi</label>
+        <textarea class="cms-textarea" id="svc-desc-2" placeholder="Deskripsi layanan...">Pendampingan profesional dalam memahami regulasi serta membantu proses administratif secara menyeluruh</textarea></div>
+    </div></div>
+        <button class="cms-save" onclick="saveAll()">Simpan Perubahan</button>
+      </div>
+
+
+      <!-- KONTAK -->
+      <div id="cms-kontak" class="cms-section">
+        <div class="cms-field">
+          <label class="cms-label">Alamat Kantor</label>
+          <textarea class="cms-textarea" id="c-addr" placeholder="Jl. Contoh No. 22, Jakarta — Indonesia" style="min-height:60px"></textarea>
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Jam Operasional</label>
+          <input class="cms-input" id="c-hours" placeholder="Sen–Jum: 08.00–17.00">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Email Utama</label>
+          <input class="cms-input" id="c-email1" placeholder="info@namabisnis.com">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Email Kedua</label>
+          <input class="cms-input" id="c-email2" placeholder="hello@namabisnis.com">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Telepon Utama</label>
+          <input class="cms-input" id="c-phone1" placeholder="+62 21 2002 2012">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Telepon Kedua</label>
+          <input class="cms-input" id="c-phone2" placeholder="+62 21 2002 2013">
+        </div>
+        <hr class="cms-divider">
+        <div class="cms-field">
+          <label class="cms-label">Link Formspree (untuk form kontak)</label>
+          <input class="cms-input" id="c-formspree" placeholder="https://formspree.io/f/KODE_KAMU">
+          <p class="cms-img-hint">Daftar gratis di formspree.io → buat form → copy endpoint URL ke sini agar form bisa kirim email.</p>
+        </div>
+        <hr class="cms-divider">
+        <div class="cms-field">
+          <label class="cms-label">Link Facebook</label>
+          <input class="cms-input" id="c-fb" placeholder="https://facebook.com/namabisnis">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Link Instagram</label>
+          <input class="cms-input" id="c-ig" placeholder="https://instagram.com/namabisnis">
+        </div>
+        <div class="cms-field">
+          <label class="cms-label">Link LinkedIn</label>
+          <input class="cms-input" id="c-li" placeholder="https://linkedin.com/company/namabisnis">
+        </div>
+        <button class="cms-save" onclick="saveAll()">Simpan Perubahan</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════ WEBSITE ════════════ -->
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a id="w-addr-top" href="https://maps.app.goo.gl/oQbNtW7bw2ehbNPA6" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">📍 Wisma GKBI, Lantai 6 Suites 607 Jl. Jend. Sudirman Kav 28, Bendungan Hilir, Tanah Abang, Jakarta Pusat 10210</a>
+    <span id="w-hours-top">⏰ Sen–Jum: 08.30–17.30</span>
+  </div>
+  <div class="topbar-right">
+    <div class="lang-switch" id="lang-switch-top">
+      <button class="lang-btn active" data-lang="id" onclick="setLang('id')">ID</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="logo"><img id="w-logo-img" class="logo-img visible" src="javasahevaraya_img1c.png" alt="Logo" style="height: 80px;"><span class="logo-text-wrap" style="display: none;"><span id="w-logo1">Javasah</span><span id="w-logo2" style="color:var(--gold)">evaraya</span></span></a>
+  <div style="display:flex;align-items:center;gap:48px">
+  <ul class="nav-links">
+    <li><a href="#about" id="w-nav-about">Tentang</a></li>
+    <li><a href="#services" id="w-nav-services">Layanan</a></li>
+    <li><a href="/blog/" id="w-nav-blog">Blog</a></li>
+    <li><a href="#contact" id="w-nav-contact">Kontak</a></li>
+  </ul>
+  <a href="#contact" class="btn-appt" id="w-navbtn">Hubungi Kami</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg" id="hero-bg-grid" style="opacity: 0;"></div>
+  <div id="hero-slideshow-wrap"><div class="hero-slideshow"><div class="hero-slideshow-overlay" style="background:rgba(10,20,40,0.62)"></div><div class="hero-slide active" style="background-image:url('javasahevaraya_img3.jpg')"></div></div></div>
+  <div class="hero-circle"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Professional Services Since April 2026 <span id="w-year"></span></div>
+    <h1><span id="w-h1">Solusi</span> <em id="w-h2">Terpercaya</em><br><span id="w-h3">sebagai mitra global Anda</span></h1>
+    <p class="hero-desc" id="w-hdesc">PT Javasa Heva Raya menyediakan layanan profesional yang mendukung kebutuhan perizinan, legalitas, dan keimigrasian bagi individu maupun perusahaan di Indonesia.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary" id="w-hbtn1">Lihat Layanan</a>
+      <a href="#contact" class="btn-outline" id="w-hbtn2">Hubungi Kami</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item" style="text-align:right">
+      <div class="stat-num" id="w-s1n"></div>
+      <div class="stat-label" id="w-s1l"></div>
+    </div>
+    <div class="stat-item" style="text-align:right">
+      <div class="stat-num" id="w-s2n"></div>
+      <div class="stat-label" id="w-s2l"></div>
+    </div>
+    <div class="stat-item" style="text-align:right">
+      <div class="stat-num" id="w-s3n"></div>
+      <div class="stat-label" id="w-s3l"></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-item">
+    <div class="iicon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+    <div><div class="ilabel" id="w-il-addr">Kantor Utama</div><div class="ival"><a id="w-addr-link" href="https://maps.app.goo.gl/oQbNtW7bw2ehbNPA6" target="_blank" rel="noopener noreferrer">Wisma GKBI, Lantai 6 Suites 607 Jl. Jend. Sudirman Kav 28, Bendungan Hilir, Tanah Abang, Jakarta Pusat 10210</a></div></div>
+  </div>
+  <div class="info-item">
+    <div class="iicon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+    <div><div class="ilabel" id="w-il-hours">Jam Operasional</div><div class="ival" id="w-hours">Sen–Jum: 08.30–17.30<br>Sabtu: Tutup</div></div>
+  </div>
+  <div class="info-item">
+    <div class="iicon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+    <div><div class="ilabel" id="w-il-email">Email</div><div class="ival"><a id="w-e1">info@javasahevaraya.com</a><br><a id="w-e2"></a></div></div>
+  </div>
+  <div class="info-item">
+    <div class="iicon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.64 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
+    <div><div class="ilabel" id="w-il-phone">Telepon</div><div class="ival"><a id="w-p1">+62 815 1723 5445</a><br><a id="w-p2"></a></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <div class="about-img-box" id="w-about-img-box">
+        <img id="w-about-img" src="javasahevaraya_img2.webp" alt="Foto Tim / Kantor" style="display: block;">
+        <span id="w-about-placeholder" style="display: none;">Foto Tim / Kantor</span>
+      </div>
+      <div class="about-accent"></div>
+      <div class="about-badge">
+        <div class="ab-num" id="w-badge-num"></div>
+        <div class="ab-text" id="w-badge-label">Berpengalaman</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="sec-eyebrow" id="w-sec-about">Tentang Kami</div>
+      <h2 class="sec-title"><span id="w-at1">Kami Berkomitmen untuk</span> <em id="w-at2">Kesuksesan</em> <span id="w-at3">Anda</span></h2>
+      <p class="about-desc" id="w-adesc">PT Javasa Heva Raya didirikan pada bulan April 2026 adalah perusahaan yang berfokus pada layanan keimigrasian, perizinan, dan solusi bisnis bagi individu maupun perusahaan, baik domestik maupun internasional.
+
+Dengan pendekatan profesional dan berbasis solusi, kami mendukung klien dalam mengelola berbagai kebutuhan administratif dan strategis secara efisien, terintegrasi, serta sesuai dengan regulasi yang berlaku di Indonesia.</p>
+      <p class="about-values"><strong id="w-values-label">Nilai kami:</strong> <span id="w-values-text">Personal · Efisien · Terstruktur</span></p>
+      <ul class="about-features" id="w-features">
+        <li id="w-f1">Tim profesional dengan pengalaman lebih dari 5 tahun</li>
+        <li id="w-f2">Pendekatan berbasis solusi dan berorientasi pada kebutuhan klien</li>
+        <li id="w-f3">Layanan yang transparan, terpercaya dan berorientasi jangka panjang</li>
+        <li id="w-f4">Memastikan setiap proses sesuai dengan regulasi yang berlaku</li>
+      </ul>
+      <br>
+      <a href="layanan.html" class="btn-primary" style="margin-top:16px" id="w-about-cta">Pelajari Lebih Lanjut</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-header">
+    <div>
+      <div class="sec-eyebrow" id="w-sec-services">Layanan Kami</div>
+      <h2 class="sec-title"><span id="w-svc-h1">Apa yang Dapat</span><br><span id="w-svc-mid">Kami</span> <em id="w-svc-h2">Bantu</em></h2>
+    </div>
+    <a href="layanan.html" class="btn-outline" id="w-svc-all">Semua Layanan</a>
+  </div>
+  <div class="svc-grid" id="w-svc-grid">
+    <div class="svc-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#c8a45a;fill:none;stroke-width:1.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></div>
+      <div class="svc-name">Layanan Keimigrasian</div>
+      <p class="svc-desc">Pengurusan berbagai jenis visa dan izin tinggal untuk kebutuhan kunjungan, pekerjaan maupun tinggal jangka panjang di Indonesia</p>
+      <a href="layanan.html" class="svc-link">Pelajari</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#c8a45a;fill:none;stroke-width:1.2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
+      <div class="svc-name">Izin Kerja dan Perizinan Tenaga Asing</div>
+      <p class="svc-desc">Layanan pengurusan izin kerja dan dokumen pendukung bagi tenaga kerja asing seusai regulasi yang berlaku di Indonesia</p>
+      <a href="layanan.html" class="svc-link">Pelajari</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#c8a45a;fill:none;stroke-width:1.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+      <div class="svc-name">Konsultasi dan Dukungan Administratif</div>
+      <p class="svc-desc">Pendampingan profesional dalam memahami regulasi serta membantu proses administratif secara menyeluruh</p>
+      <a href="layanan.html" class="svc-link">Pelajari</a>
+    </div></div>
+</section>
+
+
+<!-- BLOG TERBARU (diisi otomatis dari /blog/feed.json; tersembunyi jika belum ada artikel) -->
+<div id="blog-latest" hidden style="background:var(--navy);padding:80px 60px">
+  <div class="sec-eyebrow" id="bl-eyebrow">Blog</div>
+  <h2 class="sec-title" style="margin-bottom:36px"><span id="bl-title">Artikel</span> <em>Terbaru</em></h2>
+  <div id="bl-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,380px));gap:24px"></div>
+  <a href="/blog/" class="btn-outline" style="margin-top:36px;display:inline-block">Semua Artikel</a>
+</div>
+<script>
+(function(){
+  fetch('/blog/feed.json').then(function(r){return r.ok?r.json():[]}).then(function(a){
+    if(!a||!a.length)return;
+    var g=document.getElementById('bl-grid');
+    function esc(t){var d=document.createElement('div');d.textContent=t==null?'':t;return d.innerHTML}
+    g.innerHTML=a.map(function(p){
+      return '<a href="'+esc(p.url)+'" style="display:block;background:var(--navy-light);border:1px solid rgba(200,164,90,.16);text-decoration:none;color:#fff;overflow:hidden">'
+        +(p.image?'<img src="'+esc(p.image)+'" alt="" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">':'')
+        +'<div style="padding:24px 26px 28px"><div style="color:var(--gold);font-size:11px;letter-spacing:.16em;text-transform:uppercase">'+esc(p.date)+'</div>'
+        +'<div style="font-family:var(--font-d);font-size:24px;line-height:1.2;margin:10px 0">'+esc(p.title)+'</div>'
+        +'<div style="font-size:14px;line-height:1.7;color:rgba(255,255,255,.75)">'+esc(p.description)+'</div></div></a>';
+    }).join('');
+    document.getElementById('blog-latest').hidden=false;
+  }).catch(function(){});
+})();
+</script>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <div class="cta-text"><span id="w-cta-text">Siap Memulai?</span> <em id="w-cta-em">Konsultasi Gratis</em> <span id="w-cta-suffix">Menanti Anda</span></div>
+  <a href="#contact" class="btn-primary" style="white-space:nowrap;flex-shrink:0" id="w-cta-btn">Jadwalkan Sekarang</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="sec-eyebrow" id="w-contact-eyebrow">Hubungi Kami</div>
+      <h2 class="sec-title"><span id="w-contact-title1">Mulai</span> <em id="w-contact-title2">Konsultasi</em> <span id="w-contact-title3">dengan Kami</span></h2>
+      <div class="ci-items">
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+          <div><div class="ci-label" id="w-ci-label-addr">Alamat</div><div class="ci-value"><a id="w-addr2-link" href="https://maps.app.goo.gl/oQbNtW7bw2ehbNPA6" target="_blank" rel="noopener noreferrer">Wisma GKBI, Lantai 6 Suites 607 Jl. Jend. Sudirman Kav 28, Bendungan Hilir, Tanah Abang, Jakarta Pusat 10210</a></div></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+          <div><div class="ci-label" id="w-ci-label-email">Email</div><div class="ci-value"><a id="w-e1b">info@javasahevaraya.com</a><br><a id="w-e2b"></a></div></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.64 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
+          <div><div class="ci-label" id="w-ci-label-phone">Telepon</div><div class="ci-value"><a id="w-p1b">+62 815 1723 5445</a></div></div>
+        </div>
+        <div class="ci-item ci-linkedin" id="contact-linkedin">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"></path></svg></div>
+          <div><div class="ci-label">LinkedIn</div><div class="ci-value"><a id="w-li" href="https://www.linkedin.com/company/javasa-heva-raya/" target="_blank" rel="noopener" aria-label="LinkedIn Javasa Heva Raya">LinkedIn</a></div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <form id="w-contact-form" name="kontak" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="kontak">
+        <p hidden><label>Jangan diisi: <input name="bot-field"></label></p>
+        <div class="form-row">
+          <div class="ffield"><label id="w-form-label-name">Nama</label><input type="text" name="name" id="w-input-name" placeholder="Nama lengkap"></div>
+          <div class="ffield"><label id="w-form-label-phone">Telepon</label><input type="tel" name="phone" placeholder="+62 ..."></div>
+        </div>
+        <div class="form-row">
+          <div class="ffield"><label id="w-form-label-email">Email</label><input type="email" name="email" placeholder="email@domain.com"></div>
+          <div class="ffield"><label id="w-form-label-company">Perusahaan</label><input type="text" name="company" id="w-input-company" placeholder="Nama perusahaan"></div>
+        </div>
+        <div class="ffield"><label id="w-form-label-message">Pesan</label><textarea name="message" id="w-input-message" placeholder="Ceritakan kebutuhan Anda..."></textarea></div>
+        <button type="submit" class="btn-primary" style="width:100%;font-size:13px;letter-spacing:.1em;border:none;cursor:pointer" id="w-form-submit">Kirim Pesan</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-logo"><img id="w-flogo-img" class="f-logo-img visible" src="javasahevaraya_img1c.png" alt="Logo" style="height: 76px;"><span style="display: none;"><span id="w-flogo1">Javasah</span><span id="w-flogo2">evaraya</span></span></div>
+      <p class="f-tagline" id="w-ftagline">Solusi Terpercaya sebagai mitra global Anda</p>
+    </div>
+    <div><div class="f-col-title" id="w-footer-nav-title">Navigasi</div>
+      <ul class="f-links">
+        <li><a href="#about" id="w-footer-nav-about">Tentang Kami</a></li>
+        <li><a href="#services" id="w-footer-nav-services">Layanan</a></li>
+        <li><a href="/blog/" id="w-footer-nav-blog">Blog</a></li>
+        <li><a href="#contact" id="w-footer-nav-contact">Kontak</a></li>
+      </ul>
+    </div>
+    <div><div class="f-col-title" id="w-footer-svc-title">Layanan</div><ul class="f-links" id="w-footer-svc"><li><a href="layanan.html">Layanan Keimigrasian</a></li><li><a href="layanan.html">Izin Kerja dan Perizinan Tenaga Asing</a></li><li><a href="layanan.html">Konsultasi dan Dukungan Administratif</a></li></ul></div>
+    <div><div class="f-col-title" id="w-footer-contact-title">Kontak</div>
+      <ul class="f-links">
+        <li><a id="w-fe1" href="mailto:info@javasahevaraya.com">info@javasahevaraya.com</a></li>
+        <li><a id="w-fp1" href="https://wa.me/6281517235445" target="_blank" rel="noopener noreferrer">+62 815 1723 5445</a></li>
+        <li><a href="https://maps.app.goo.gl/oQbNtW7bw2ehbNPA6" target="_blank" rel="noopener noreferrer">Jakarta, Indonesia</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="w-fyear">2026</span> <span id="w-fcopy">Javasahevaraya</span>. <span id="w-footer-rights">Hak cipta dilindungi.</span></span>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════
+// DATA DEFAULT
+// ══════════════════════════════
+const DEFAULT = {
+  "bizname": "Javasahevaraya",
+  "pagetitle": "Javasahevaraya",
+  "tagline": "Solusi Terpercaya sebagai mitra global Anda",
+  "year": "",
+  "s1n": "",
+  "s1l": "",
+  "s2n": "",
+  "s2l": "",
+  "s3n": "",
+  "s3l": "",
+  "sec-about": "Tentang Kami",
+  "sec-services": "Layanan Kami",
+  "svc-h1": "Apa yang Dapat",
+  "svc-h2": "Bantu",
+  "cta-text": "Siap Memulai?",
+  "cta-em": "Konsultasi Gratis",
+  "navbtn": "Hubungi Kami",
+  "h1": "Solusi",
+  "h2": "Terpercaya",
+  "h3": "sebagai mitra global Anda",
+  "hdesc": "PT Javasa Heva Raya menyediakan layanan profesional yang mendukung kebutuhan perizinan, legalitas, dan keimigrasian bagi individu maupun perusahaan di Indonesia.",
+  "hbtn1": "Lihat Layanan",
+  "hbtn2": "Hubungi Kami",
+  "about-t1": "Kami Berkomitmen untuk",
+  "about-t2": "Kesuksesan",
+  "about-t3": "Anda",
+  "about-photo": "javasahevaraya_img2.webp",
+  "adesc": "PT Javasa Heva Raya didirikan pada April 2026 adalah perusahaan yang berfokus pada layanan keimigrasian, perizinan, dan solusi bisnis bagi individu maupun perusahaan, baik domestik maupun internasional.\n\nDengan pendekatan profesional dan berbasis solusi, kami mendukung klien dalam mengelola berbagai kebutuhan administratif dan strategis secara efisien, terintegrasi, serta sesuai dengan regulasi yang berlaku di Indonesia.",
+  "f1": "Tim profesional dengan pengalaman lebih dari 5 tahun",
+  "f2": "Pendekatan berbasis solusi dan berorientasi pada kebutuhan klien",
+  "f3": "Layanan yang transparan, terpercaya dan berorientasi jangka panjang",
+  "f4": "Memastikan setiap proses sesuai dengan regulasi yang berlaku",
+  "addr": "Wisma GKBI, Lantai 6 Suites 607 Jl. Jend. Sudirman Kav 28, Bendungan Hilir, Tanah Abang, Jakarta Pusat 10210",
+  "hours": "Sen–Jum: 08.30–17.30",
+  "email1": "info@javasahevaraya.com",
+  "email2": "",
+  "phone1": "+62 815 1723 5445",
+  "phone2": "",
+  "formspree": "",
+  "fb": "#",
+  "ig": "#",
+  "li": "https://www.linkedin.com/company/javasa-heva-raya/",
+  "colors": {
+    "navy": "#0f1e35",
+    "navy-mid": "#162840",
+    "navy-light": "#1e3656",
+    "gold": "#c8a45a",
+    "gold-light": "#e2c47e"
+  },
+  "heroMode": "image",
+  "heroImage": "javasahevaraya_img3.jpg",
+  "heroOverlay": 62,
+  "slides": [],
+  "slideSpeed": 5,
+  "slideOverlay": 62,
+  "logoMode": "image",
+  "logoUrl": "javasahevaraya_img1c.png",
+  "logoHeight": 80,
+  "services": [
+    {"name": "Izin Tinggal Investor & Tetap", "desc": "Pendampingan pengurusan izin tinggal investor dan izin tinggal tetap di Indonesia."},
+    {"name": "Visa Kunjungan Sekali & Beberapa Kali", "desc": "Pengurusan visa kunjungan satu kali maupun beberapa kali masuk."},
+    {"name": "Visa Kerja & Keluarga", "desc": "Pendampingan visa untuk bekerja dan tinggal bersama keluarga di Indonesia."},
+    {"name": "Visa Luar Negeri", "desc": "Dukungan administrasi pengajuan visa untuk perjalanan ke luar negeri."}
+  ]
+};
+
+// ══════════════════════════════
+// LANGUAGE / i18n
+// ══════════════════════════════
+let currentLang = 'id';
+try{ currentLang = localStorage.getItem('site_lang') || 'id'; }catch(e){}
+
+// English overrides for CMS-driven content fields (mirrors keys in DEFAULT)
+const EN_CONTENT = {
+  "tagline": "Trusted Solutions as Your Global Partner",
+  "sec-about": "About Us",
+  "sec-services": "Our Services",
+  "svc-h1": "What We Can",
+  "svc-h2": "Help You With",
+  "cta-text": "Ready to Get Started?",
+  "cta-em": "Free Consultation",
+  "navbtn": "Contact Us",
+  "h1": "Trusted",
+  "h2": "Solutions",
+  "h3": "as your global partner",
+  "hdesc": "PT Javasa Heva Raya provides professional services that support licensing, legal, and immigration needs for individuals and companies in Indonesia.",
+  "hbtn1": "View Services",
+  "hbtn2": "Contact Us",
+  "about-t1": "We Are Committed to",
+  "about-t2": "Your Success",
+  "about-t3": "",
+  "adesc": "PT Javasa Heva Raya, established April 2026, is a company focused on immigration services, licensing, and business solutions for individuals and companies, both domestic and international.\n\nWith a professional, solution-oriented approach, we help clients manage a wide range of administrative and strategic needs efficiently, in an integrated way, and in compliance with applicable regulations in Indonesia.",
+  "f1": "A professional team with more than 5 years of experience",
+  "f2": "A solution-oriented approach focused on client needs",
+  "f3": "Transparent, reliable, and long-term-oriented service",
+  "f4": "Ensuring every process complies with applicable regulations",
+  "hours": "Mon–Fri: 08:30–17:30",
+  "services": [
+    {"name": "Investor & Permanent Stay Permit", "desc": "Assistance with investor and permanent stay permits in Indonesia."},
+    {"name": "Single and Multiple Visit Visa", "desc": "Support for single entry and multiple entry visit visas."},
+    {"name": "Working and Family Visa", "desc": "Visa assistance for employment and family stays in Indonesia."},
+    {"name": "Overseas Visa", "desc": "Administrative support for visa applications for travel abroad."}
+  ]
+};
+
+// Fixed UI strings not part of the CMS-editable content, keyed by element id
+const STATIC_TEXT = {
+  'w-nav-about': {id:'Tentang', en:'About'},
+  'w-nav-services': {id:'Layanan', en:'Services'},
+  'w-nav-contact': {id:'Kontak', en:'Contact'},
+  'w-nav-blog': {id:'Blog', en:'Blog'},
+  'w-about-cta': {id:'Pelajari Lebih Lanjut', en:'Learn More'},
+  'w-badge-label': {id:'Berpengalaman', en:'Experience'},
+  'w-svc-mid': {id:'Kami', en:''},
+  'w-svc-all': {id:'Semua Layanan', en:'All Services'},
+  'w-cta-btn': {id:'Jadwalkan Sekarang', en:'Schedule Now'},
+  'w-cta-suffix': {id:'Menanti Anda', en:'Awaits You'},
+  'w-contact-eyebrow': {id:'Hubungi Kami', en:'Contact Us'},
+  'w-contact-title1': {id:'Mulai', en:"Start a"},
+  'w-contact-title2': {id:'Konsultasi', en:'Consultation'},
+  'w-contact-title3': {id:'dengan Kami', en:'With Us'},
+  'w-ci-label-addr': {id:'Alamat', en:'Address'},
+  'w-ci-label-email': {id:'Email', en:'Email'},
+  'w-ci-label-phone': {id:'Telepon', en:'Phone'},
+  'w-il-addr': {id:'Kantor Utama', en:'Main Office'},
+  'w-il-hours': {id:'Jam Operasional', en:'Business Hours'},
+  'w-il-email': {id:'Email', en:'Email'},
+  'w-il-phone': {id:'Telepon', en:'Phone'},
+  'w-form-label-name': {id:'Nama', en:'Name'},
+  'w-form-label-phone': {id:'Telepon', en:'Phone'},
+  'w-form-label-email': {id:'Email', en:'Email'},
+  'w-form-label-company': {id:'Perusahaan', en:'Company'},
+  'w-form-label-message': {id:'Pesan', en:'Message'},
+  'w-form-submit': {id:'Kirim Pesan', en:'Send Message'},
+  'w-footer-nav-title': {id:'Navigasi', en:'Navigation'},
+  'w-footer-nav-about': {id:'Tentang Kami', en:'About Us'},
+  'w-footer-nav-services': {id:'Layanan', en:'Services'},
+  'w-footer-nav-contact': {id:'Kontak', en:'Contact'},
+  'w-footer-nav-blog': {id:'Blog', en:'Blog'},
+  'w-footer-svc-title': {id:'Layanan', en:'Services'},
+  'w-footer-contact-title': {id:'Kontak', en:'Contact'},
+  'w-footer-rights': {id:'Hak cipta dilindungi.', en:'All rights reserved.'}
+};
+
+const STATIC_PLACEHOLDER = {
+  'w-input-name': {id:'Nama lengkap', en:'Full name'},
+  'w-input-company': {id:'Nama perusahaan', en:'Company name'},
+  'w-input-message': {id:'Ceritakan kebutuhan Anda...', en:'Tell us about your needs...'}
+};
+
+function getLangData(d){
+  if(currentLang !== 'en') return d;
+  return Object.assign({}, d, EN_CONTENT);
+}
+
+function applyStaticI18n(){
+  Object.keys(STATIC_TEXT).forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = STATIC_TEXT[id][currentLang];
+  });
+  Object.keys(STATIC_PLACEHOLDER).forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.placeholder = STATIC_PLACEHOLDER[id][currentLang];
+  });
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.dataset.lang===currentLang));
+}
+
+function setLang(lang){
+  if(lang===currentLang) return;
+  currentLang = lang;
+  try{ localStorage.setItem('site_lang', lang); }catch(e){}
+  renderWebsite(getLangData(loadData()));
+  applyStaticI18n();
+}
+
+// ══════════════════════════════
+// STORAGE (in-memory, no localStorage)
+// ══════════════════════════════
+window._CMS_DATA = null; // baked // baked
+function loadData(){
+  if(!window._CMS_DATA) window._CMS_DATA = JSON.parse(JSON.stringify(DEFAULT));
+  return window._CMS_DATA;
+}
+function saveData(d){ window._CMS_DATA = d; }
+
+// ══════════════════════════════
+// RENDER WEBSITE
+// ══════════════════════════════
+const SVG_ICONS = [
+  '<svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#c8a45a;fill:none;stroke-width:1.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+  '<svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#c8a45a;fill:none;stroke-width:1.2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+  '<svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#c8a45a;fill:none;stroke-width:1.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+];
+
+// ══════════════════════════════
+// COLOR ENGINE
+// ══════════════════════════════
+const COLOR_PRESETS = {
+  navy:   {navy:'#0f1e35','navy-mid':'#162840','navy-light':'#1e3656',gold:'#c8a45a','gold-light':'#e2c47e'},
+  dark:   {navy:'#111111','navy-mid':'#1a1a1a','navy-light':'#242424',gold:'#d4a853','gold-light':'#e8c07a'},
+  forest: {navy:'#0f2318','navy-mid':'#163020','navy-light':'#1e3d28',gold:'#7ec87a','gold-light':'#a3dfa0'},
+  maroon: {navy:'#200a0a','navy-mid':'#2e1010','navy-light':'#3d1515',gold:'#c87a5a','gold-light':'#e09e80'},
+  slate:  {navy:'#0d1d30','navy-mid':'#132539','navy-light':'#1b3048',gold:'#6fa8dc','gold-light':'#9ac3e8'},
+  cream:  {navy:'#1a1510','navy-mid':'#231c14','navy-light':'#2e2418',gold:'#c09a60','gold-light':'#d6b880'},
+};
+
+function applyColors(colors){
+  const r = document.documentElement.style;
+  r.setProperty('--navy', colors.navy);
+  r.setProperty('--navy-mid', colors['navy-mid']);
+  r.setProperty('--navy-light', colors['navy-light']);
+  r.setProperty('--gold', colors.gold);
+  r.setProperty('--gold-light', colors['gold-light']);
+}
+function applyPreset(name){
+  const c = COLOR_PRESETS[name];
+  if(!c) return;
+  applyColors(c);
+  // Update pickers
+  Object.keys(c).forEach(k=>{
+    const cp=document.getElementById('cp-'+k); if(cp) cp.value=c[k];
+    const ch=document.getElementById('ch-'+k); if(ch) ch.value=c[k].toUpperCase();
+  });
+  updateColorPreviewBar(c);
+}
+function updateColor(key, val){
+  document.documentElement.style.setProperty('--'+key, val);
+  const ch=document.getElementById('ch-'+key); if(ch) ch.value=val.toUpperCase();
+  syncColorPreviewBar();
+}
+function updateColorFromHex(key, val){
+  if(!/^#[0-9A-Fa-f]{6}$/.test(val)) return;
+  document.documentElement.style.setProperty('--'+key, val);
+  const cp=document.getElementById('cp-'+key); if(cp) cp.value=val;
+  syncColorPreviewBar();
+}
+function syncColorPreviewBar(){
+  const keys=['navy','navy-mid','navy-light','gold','gold-light'];
+  const c={};
+  keys.forEach(k=>c[k]=getComputedStyle(document.documentElement).getPropertyValue('--'+k).trim());
+  updateColorPreviewBar(c);
+}
+function updateColorPreviewBar(c){
+  const keys=['navy','navy-mid','navy-light','gold','gold-light'];
+  keys.forEach(k=>{ const el=document.getElementById('cpb-'+k); if(el) el.style.background=c[k]; });
+}
+function resetColors(){ applyPreset('navy'); }
+function getCurrentColors(){
+  const keys=['navy','navy-mid','navy-light','gold','gold-light'];
+  const c={};
+  keys.forEach(k=>c[k]=getComputedStyle(document.documentElement).getPropertyValue('--'+k).trim()||COLOR_PRESETS.navy[k]);
+  return c;
+}
+function initColorPickers(d){
+  const colors = d.colors || COLOR_PRESETS.navy;
+  applyColors(colors);
+  Object.keys(colors).forEach(k=>{
+    const cp=document.getElementById('cp-'+k); if(cp) cp.value=colors[k];
+    const ch=document.getElementById('ch-'+k); if(ch) ch.value=colors[k].toUpperCase();
+  });
+  updateColorPreviewBar(colors);
+}
+
+// ══════════════════════════════
+// SLIDESHOW ENGINE
+// ══════════════════════════════
+let _ssTimer=null, _ssIdx=0;
+
+function renderHeroMedia(d){
+  const wrap = document.getElementById('hero-slideshow-wrap');
+  const grid = document.getElementById('hero-bg-grid');
+  if(!wrap) return;
+  clearInterval(_ssTimer); _ssIdx=0;
+
+  if(d.heroMode==='image' && d.heroImage){
+    grid.style.opacity='0';
+    wrap.innerHTML=`<div class="hero-slideshow"><div class="hero-slideshow-overlay" style="background:rgba(10,20,40,${(d.heroOverlay||62)/100})"></div><div class="hero-slide active" style="background-image:url('${d.heroImage}')"></div></div>`;
+  } else if(d.heroMode==='slideshow' && d.slides && d.slides.length){
+    grid.style.opacity='0';
+    const overlay=(d.slideOverlay||62)/100;
+    const slidesHtml=d.slides.map((s,i)=>`<div class="hero-slide${i===0?' active':''}" style="background-image:url('${s}')"></div>`).join('');
+    wrap.innerHTML=`<div class="hero-slideshow">
+      <div class="hero-slideshow-overlay" id="ss-overlay" style="background:rgba(10,20,40,${overlay})"></div>
+      ${slidesHtml}
+      ${d.slides.length>1?`<div class="slide-arrows"><button class="slide-arrow" onclick="slidePrev()">‹</button><button class="slide-arrow" onclick="slideNext()">›</button></div><div class="slide-dots">${d.slides.map((_,i)=>`<button class="slide-dot${i===0?' active':''}" onclick="goSlide(${i})"></button>`).join('')}</div>`:''}
+    </div>`;
+    if(d.slides.length>1){
+      const spd=(d.slideSpeed||5)*1000;
+      _ssTimer=setInterval(()=>slideNext(), spd);
+    }
+  } else {
+    grid.style.opacity='1';
+    wrap.innerHTML='';
+  }
+}
+function getSlides(){ return document.querySelectorAll('#hero-slideshow-wrap .hero-slide'); }
+function getDots(){ return document.querySelectorAll('.slide-dot'); }
+function goSlide(n){
+  const slides=getSlides(), dots=getDots();
+  slides.forEach((s,i)=>s.classList.toggle('active',i===n));
+  dots.forEach((d,i)=>d.classList.toggle('active',i===n));
+  _ssIdx=n;
+}
+function slideNext(){ const s=getSlides(); goSlide((_ssIdx+1)%s.length); }
+function slidePrev(){ const s=getSlides(); goSlide((_ssIdx-1+s.length)%s.length); }
+
+// ══════════════════════════════
+// CMS MEDIA HELPERS
+// ══════════════════════════════
+function setHeroMode(mode, btn){
+  document.querySelectorAll('.slide-mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('media-single').style.display = mode==='image'?'block':'none';
+  document.getElementById('media-slideshow').style.display = mode==='slideshow'?'block':'none';
+}
+function handleHeroImage(input){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const url=e.target.result;
+    document.getElementById('hero-img-url').value='[upload]';
+    document.getElementById('hero-img-url').dataset.src=url;
+    previewHeroImageUrl(url);
+    // Save to state & render immediately
+    const d=loadData();
+    d.heroImage=url;
+    d.heroMode='image';
+    saveData(d);
+    renderHeroMedia(d);
+  };
+  reader.readAsDataURL(file);
+}
+function previewHeroImageUrl(url){
+  const thumb=document.getElementById('hero-img-thumb');
+  if(!url){ thumb.innerHTML='<span>📷 Klik untuk upload gambar hero</span>'; return; }
+  const realUrl = document.getElementById('hero-img-url').dataset.src || url;
+  thumb.innerHTML=`<img src="${realUrl}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/><span style="background:rgba(0,0,0,.5);padding:2px 6px;position:relative;z-index:1">✓ Gambar terpilih</span>`;
+}
+function updateOverlay(val){
+  document.getElementById('hero-overlay-val').textContent=val+'% — sesuaikan agar teks tetap terbaca';
+}
+function updateSlideOverlay(val){
+  document.getElementById('slide-overlay-val').textContent=val+'% — sesuaikan agar teks tetap terbaca';
+}
+function addSlide(){
+  const d=loadData();
+  if(!d.slides) d.slides=[];
+  d.slides.push('');
+  saveData(d);
+  buildSlideListCMS(d);
+}
+function removeSlide(i){
+  const d=loadData();
+  if(!d.slides) d.slides=[];
+  d.slides.splice(i,1);
+  saveData(d);
+  buildSlideListCMS(d);
+}
+function buildSlideListCMS(d){
+  const list=document.getElementById('slide-list-cms');
+  if(!list) return;
+  if(!d.slides||d.slides.length===0){
+    list.innerHTML='<p style="font-size:11px;color:var(--muted);margin-bottom:8px">Belum ada slide. Klik "Tambah Slide" di bawah.</p>';
+    return;
+  }
+  list.innerHTML=d.slides.map((src,i)=>`
+    <div class="slide-item-cms" id="slide-cms-${i}">
+      <button class="rm-btn" onclick="removeSlide(${i})">✕</button>
+      <div class="slide-thumb" id="sthumb-${i}" onclick="document.getElementById('sfile-${i}').click()">
+        ${src?`<img src="${src}"/><span style="background:rgba(0,0,0,.5);padding:2px 6px;position:relative;z-index:1">✓ Slide ${i+1}</span>`:`<span>📷 Slide ${i+1} — klik upload</span>`}
+      </div>
+      <input type="file" id="sfile-${i}" class="photo-input-hidden" accept="image/*" onchange="handleSlideFile(this,${i})"/>
+      <input class="cms-input" id="surl-${i}" value="${src||''}" placeholder="Atau URL gambar..." oninput="handleSlideUrl(this.value,${i})"/>
+    </div>`).join('');
+}
+function handleSlideFile(input,i){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const url=e.target.result;
+    document.getElementById('surl-'+i).value='[upload]';
+    document.getElementById('surl-'+i).dataset.src=url;
+    const thumb=document.getElementById('sthumb-'+i);
+    thumb.innerHTML=`<img src="${url}"/><span style="background:rgba(0,0,0,.5);padding:2px 6px;position:relative;z-index:1">✓ Slide ${i+1}</span>`;
+    // Save to state immediately
+    const d=loadData();
+    if(!d.slides) d.slides=[];
+    d.slides[i]=url;
+    saveData(d);
+  };
+  reader.readAsDataURL(file);
+}
+function handleSlideUrl(url,i){
+  const thumb=document.getElementById('sthumb-'+i);
+  if(!url){ thumb.innerHTML=`<span>📷 Slide ${i+1} — klik upload</span>`; return; }
+  thumb.innerHTML=`<img src="${url}"/><span style="background:rgba(0,0,0,.5);padding:2px 6px;position:relative;z-index:1">✓ Slide ${i+1}</span>`;
+}
+function initMediaCMS(d){
+  const mode=d.heroMode||'none';
+  // set mode buttons
+  ['none','image','slideshow'].forEach(m=>{
+    const btn=document.getElementById('mode-'+m);
+    if(btn) btn.classList.toggle('active',m===mode);
+  });
+  document.getElementById('media-single').style.display=mode==='image'?'block':'none';
+  document.getElementById('media-slideshow').style.display=mode==='slideshow'?'block':'none';
+  // hero image
+  const urlEl=document.getElementById('hero-img-url');
+  if(urlEl && d.heroImage){ urlEl.value=d.heroImage; previewHeroImageUrl(d.heroImage); }
+  // overlay
+  const ov=document.getElementById('hero-overlay'); if(ov){ ov.value=d.heroOverlay||62; updateOverlay(d.heroOverlay||62); }
+  const sov=document.getElementById('slide-overlay'); if(sov){ sov.value=d.slideOverlay||62; updateSlideOverlay(d.slideOverlay||62); }
+  // slide speed
+  const spd=document.getElementById('slide-speed'); if(spd) spd.value=d.slideSpeed||5;
+  // build slide list
+  buildSlideListCMS(d);
+}
+
+function getMediaFromCMS(d){
+  // hero mode
+  const modeActive=document.querySelector('.slide-mode-btn.active');
+  if(modeActive){
+    if(modeActive.id==='mode-image') d.heroMode='image';
+    else if(modeActive.id==='mode-slideshow') d.heroMode='slideshow';
+    else d.heroMode='none';
+  }
+  // hero image url
+  const urlEl=document.getElementById('hero-img-url');
+  if(urlEl){
+    d.heroImage = urlEl.dataset.src || (urlEl.value==='[upload]'?d.heroImage:urlEl.value);
+  }
+  d.heroOverlay = parseInt(document.getElementById('hero-overlay')?.value||62);
+  d.slideOverlay = parseInt(document.getElementById('slide-overlay')?.value||62);
+  d.slideSpeed = parseInt(document.getElementById('slide-speed')?.value||5);
+  // collect slides
+  const items=document.querySelectorAll('[id^="surl-"]');
+  d.slides = Array.from(items).map((el,i)=>{
+    return el.dataset.src || (el.value==='[upload]'?( d.slides&&d.slides[i]?d.slides[i]:'' ):el.value);
+  });
+  return d;
+}
+
+function renderWebsite(d){
+  // Apply colors
+  if(d.colors) applyColors(d.colors);
+  // Apply hero media
+  renderHeroMedia(d);
+  // Logo
+  const half = Math.ceil(d.bizname.length/2);
+  document.getElementById('w-logo1').textContent = d.bizname.slice(0,half);
+  document.getElementById('w-logo2').textContent = d.bizname.slice(half);
+  document.getElementById('w-flogo1').textContent = d.bizname.slice(0,half);
+  document.getElementById('w-flogo2').textContent = d.bizname.slice(half);
+  document.title = d.pagetitle || (d.bizname + ' — Professional Services');
+
+  // Logo image
+  const logoH = d.logoHeight || 40;
+  const navLogoImg = document.getElementById('w-logo-img');
+  const navLogoText = document.querySelector('#w-logo1')?.parentElement;
+  const ftLogoImg = document.getElementById('w-flogo-img');
+  const ftLogoText = document.querySelector('#w-flogo1')?.parentElement;
+  if(d.logoMode === 'image' && d.logoUrl){
+    if(navLogoImg){ navLogoImg.src=d.logoUrl; navLogoImg.style.height=logoH+'px'; navLogoImg.classList.add('visible'); }
+    if(navLogoText) navLogoText.style.display='none';
+    if(ftLogoImg){ ftLogoImg.src=d.logoUrl; ftLogoImg.style.height=(logoH-4)+'px'; ftLogoImg.classList.add('visible'); }
+    if(ftLogoText) ftLogoText.style.display='none';
+  } else {
+    if(navLogoImg){ navLogoImg.classList.remove('visible'); navLogoImg.src=''; }
+    if(navLogoText) navLogoText.style.display='';
+    if(ftLogoImg){ ftLogoImg.classList.remove('visible'); ftLogoImg.src=''; }
+    if(ftLogoText) ftLogoText.style.display='';
+  }
+
+  // Navbar
+  const navBtn = document.getElementById('w-navbtn');
+  if(navBtn) navBtn.textContent = d.navbtn || 'Konsultasi';
+
+  // Section titles
+  const setEl = (id,val)=>{ const el=document.getElementById(id); if(el) el.textContent=val; };
+  setEl('w-sec-about', d['sec-about'] || 'Tentang Kami');
+  setEl('w-sec-services', d['sec-services'] || 'Layanan Kami');
+  setEl('w-svc-h1', d['svc-h1'] || 'Apa yang Dapat');
+  setEl('w-svc-h2', d['svc-h2'] || 'Bantu');
+
+
+  setEl('w-cta-text', d['cta-text'] || 'Siap Memulai?');
+  setEl('w-cta-em', d['cta-em'] || 'Konsultasi Gratis');
+
+  // About photo
+  const aboutImg = document.getElementById('w-about-img');
+  const aboutPlaceholder = document.getElementById('w-about-placeholder');
+  if(d['about-photo'] && aboutImg){
+    aboutImg.src = d['about-photo'];
+    aboutImg.style.display = 'block';
+    if(aboutPlaceholder) aboutPlaceholder.style.display = 'none';
+  } else if(aboutImg){
+    aboutImg.style.display = 'none';
+    if(aboutPlaceholder) aboutPlaceholder.style.display = '';
+  }
+
+  // Hero
+  document.getElementById('w-year').textContent = d.year;
+  document.getElementById('w-h1').textContent = d.h1;
+  document.getElementById('w-h2').textContent = d.h2;
+  document.getElementById('w-h3').textContent = d.h3;
+  document.getElementById('w-hdesc').textContent = d.hdesc;
+  document.getElementById('w-hbtn1').textContent = d.hbtn1;
+  document.getElementById('w-hbtn2').textContent = d.hbtn2;
+  document.getElementById('w-s1n').textContent = d.s1n;
+  document.getElementById('w-s1l').textContent = d.s1l;
+  document.getElementById('w-s2n').textContent = d.s2n;
+  document.getElementById('w-s2l').textContent = d.s2l;
+  document.getElementById('w-s3n').textContent = d.s3n;
+  document.getElementById('w-s3l').textContent = d.s3l;
+  document.getElementById('w-badge-num').textContent = d.s1n;
+
+  // About
+  document.getElementById('w-at1').textContent = d['about-t1'];
+  document.getElementById('w-at2').textContent = d['about-t2'];
+  document.getElementById('w-at3').textContent = d['about-t3'];
+  document.getElementById('w-adesc').textContent = d.adesc;
+  document.getElementById('w-values-label').textContent = currentLang==='en' ? 'Our values:' : 'Nilai kami:';
+  document.getElementById('w-values-text').textContent = currentLang==='en' ? 'Personalized · Efficient · Structured' : 'Personal · Efisien · Terstruktur';
+  document.getElementById('w-f1').textContent = d.f1;
+  document.getElementById('w-f2').textContent = d.f2;
+  document.getElementById('w-f3').textContent = d.f3;
+  document.getElementById('w-f4').textContent = d.f4;
+
+  // Info strip + contact
+  const mapUrl = 'https://maps.app.goo.gl/oQbNtW7bw2ehbNPA6';
+  ['w-addr-link','w-addr2-link'].forEach(id=>{ const el=document.getElementById(id); el.textContent=d.addr; el.href=mapUrl; });
+  document.getElementById('w-addr-top').textContent = '📍 ' + d.addr;
+  document.getElementById('w-addr-top').href = mapUrl;
+  document.getElementById('w-hours').innerHTML = d.hours + '<br>' + (currentLang==='en' ? 'Sat: Closed' : 'Sabtu: Tutup');
+  document.getElementById('w-hours-top').textContent = '⏰ ' + d.hours;
+  ['w-e1','w-e1b','w-fe1'].forEach(id=>{ const el=document.getElementById(id); if(el){ el.textContent=d.email1; el.href='mailto:'+d.email1; }});
+  ['w-e2','w-e2b'].forEach(id=>{ const el=document.getElementById(id); if(el){ el.textContent=d.email2; el.href=d.email2?'mailto:'+d.email2:''; } });
+  ['w-p1','w-p1b','w-fp1'].forEach(id=>{ const el=document.getElementById(id); if(el){ el.textContent=d.phone1; el.href='https://wa.me/'+d.phone1.replace(/\D/g,''); el.target='_blank'; el.rel='noopener noreferrer'; }});
+  const p2=document.getElementById('w-p2'); p2.textContent=d.phone2; p2.href=d.phone2?'https://wa.me/'+d.phone2.replace(/\D/g,''):'';
+
+  // Social links
+  ['fb','ig','li'].forEach(k=>{
+    ['w-','w-f'].forEach(p=>{ const el=document.getElementById(p+k); if(el) el.href=d[k]||'#'; });
+  });
+
+  // Footer
+  document.getElementById('w-ftagline').textContent = d.tagline;
+  document.getElementById('w-fyear').textContent = new Date().getFullYear();
+  document.getElementById('w-fcopy').textContent = d.bizname;
+
+  // Services
+  const sg = document.getElementById('w-svc-grid');
+  sg.innerHTML = d.services.map((s,i)=>`
+    <div class="svc-card">
+      <div class="svc-num">0${i+1}</div>
+      <div class="svc-icon">${SVG_ICONS[i]||SVG_ICONS[0]}</div>
+      <div class="svc-name">${s.name}</div>
+      <p class="svc-desc">${s.desc}</p>
+      <a href="layanan.html" class="svc-link">${currentLang==='en' ? 'Learn More' : 'Pelajari'}</a>
+    </div>`).join('');
+
+  // Footer services
+  document.getElementById('w-footer-svc').innerHTML = d.services.map(s=>`<li><a href="layanan.html">${s.name}</a></li>`).join('');
+
+  // Team
+
+  // Form action
+  const form = document.getElementById('w-contact-form');
+  if(d.formspree && d.formspree.includes('formspree')){
+    form.action = d.formspree; form.method = 'POST';
+    form.onsubmit = null;
+  } else {
+    // Kirim lewat Netlify Forms (pesan masuk ke dashboard Netlify + notifikasi email)
+    form.onsubmit = async (e)=>{
+      e.preventDefault();
+      const en = currentLang==='en';
+      const btn = form.querySelector('button[type=submit]');
+      const label = btn.textContent;
+      btn.disabled = true; btn.textContent = en ? 'Sending...' : 'Mengirim...';
+      try{
+        const r = await fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(new FormData(form)).toString()});
+        if(!r.ok) throw new Error(r.status);
+        form.reset();
+        alert(en ? 'Thank you! Your message has been sent. Our team will contact you soon.' : 'Terima kasih! Pesan Anda sudah terkirim. Tim kami akan segera menghubungi Anda.');
+      }catch(err){
+        alert(en ? 'Failed to send your message. Please contact us by email.' : 'Pesan gagal terkirim. Silakan hubungi kami lewat email.');
+      }
+      btn.disabled = false; btn.textContent = label;
+    };
+  }
+}
+
+// ══════════════════════════════
+// LOGO CMS
+// ══════════════════════════════
+function setLogoMode(mode, btn){
+  document.querySelectorAll('.logo-mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('logo-text-fields').style.display = mode==='text'?'block':'none';
+  document.getElementById('logo-image-fields').style.display = mode==='image'?'block':'none';
+}
+function handleLogoUpload(input){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const url=e.target.result;
+    applyLogoPreview(url);
+    document.getElementById('c-logo-url').value='';
+    document.getElementById('c-logo-url').dataset.src=url;
+  };
+  reader.readAsDataURL(file);
+}
+function previewLogoFromUrl(url){
+  if(!url) return;
+  applyLogoPreview(url);
+}
+function applyLogoPreview(url){
+  const prev=document.getElementById('logo-preview');
+  if(!prev) return;
+  let img=prev.querySelector('img');
+  if(!img){ img=document.createElement('img'); img.style.cssText='max-height:56px;max-width:90%;object-fit:contain'; prev.appendChild(img); }
+  img.src=url;
+  const hint=prev.querySelector('span'); if(hint) hint.textContent='✓ Logo terpilih — klik untuk ganti';
+}
+function updateLogoHeight(val){
+  const navImg=document.getElementById('w-logo-img');
+  const ftImg=document.getElementById('w-flogo-img');
+  if(navImg && navImg.classList.contains('visible')) navImg.style.height=val+'px';
+  if(ftImg && ftImg.classList.contains('visible')) ftImg.style.height=(val-4)+'px';
+}
+function previewLogoText(){
+  // live preview nama bisnis di logo teks
+  const val=document.getElementById('c-bizname').value||'NamaBisnis';
+  const half=Math.ceil(val.length/2);
+  const l1=document.getElementById('w-logo1'); if(l1) l1.textContent=val.slice(0,half);
+  const l2=document.getElementById('w-logo2'); if(l2) l2.textContent=val.slice(half);
+}
+function initLogoCMS(d){
+  const mode=d.logoMode||'text';
+  const textBtn=document.getElementById('lmode-text');
+  const imgBtn=document.getElementById('lmode-image');
+  if(mode==='image'){ imgBtn?.classList.add('active'); textBtn?.classList.remove('active'); }
+  else { textBtn?.classList.add('active'); imgBtn?.classList.remove('active'); }
+  document.getElementById('logo-text-fields').style.display=mode==='text'?'block':'none';
+  document.getElementById('logo-image-fields').style.display=mode==='image'?'block':'none';
+  // restore preview
+  if(d.logoUrl){
+    document.getElementById('c-logo-url').value=d.logoMode==='image'?d.logoUrl:'';
+    applyLogoPreview(d.logoUrl);
+  }
+  const hEl=document.getElementById('c-logo-height'); if(hEl) hEl.value=d.logoHeight||40;
+}
+function getLogoModeFromCMS(){
+  const active=document.querySelector('.logo-mode-btn.active');
+  return active?.id==='lmode-image'?'image':'text';
+}
+function getLogoUrlFromCMS(d){
+  const urlEl=document.getElementById('c-logo-url');
+  return urlEl?.dataset.src || (urlEl?.value&&urlEl.value!==''?urlEl.value:d.logoUrl||'');
+}
+
+// ══════════════════════════════
+// CMS PANEL
+// ══════════════════════════════
+function openCMS(){
+  const d = loadData();
+  // Fill inputs
+  const fields = ['bizname','pagetitle','tagline','year','s1n','s1l','s2n','s2l','s3n','s3l',
+    'h1','h2','h3','hdesc','hbtn1','hbtn2','about-t1','about-t2','about-t3','about-photo',
+    'adesc','f1','f2','f3','f4','addr','hours','email1','email2','phone1','phone2','formspree','fb','ig','li',
+    'sec-about','sec-services','svc-h1','svc-h2','cta-text','cta-em','navbtn'];
+  fields.forEach(k=>{ const el=document.getElementById('c-'+k); if(el) el.value=d[k]||''; });
+
+  // Restore about photo preview
+  const prevAbout = document.getElementById('about-photo-preview');
+  if(prevAbout && d['about-photo']){
+    let img = prevAbout.querySelector('img');
+    if(!img){ img=document.createElement('img'); prevAbout.appendChild(img); }
+    img.src=d['about-photo']; img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+    prevAbout.querySelector('.photo-preview-label').style.opacity='0.7';
+  }
+
+  // Build service cards
+  const sl = document.getElementById('svc-list');
+  sl.innerHTML = d.services.map((s,i)=>`
+    <div class="cms-card" id="svc-card-${i}">
+      <div class="cms-card-title">Layanan ${i+1}</div>
+      <div class="cms-field"><label class="cms-label">Nama Layanan</label>
+        <input class="cms-input" id="svc-name-${i}" value="${s.name}" placeholder="Nama layanan"/></div>
+      <div class="cms-field"><label class="cms-label">Deskripsi</label>
+        <textarea class="cms-textarea" id="svc-desc-${i}" placeholder="Deskripsi layanan...">${s.desc}</textarea></div>
+    </div>`).join('');
+
+  document.getElementById('cms-overlay').classList.add('open');
+  initColorPickers(d);
+  initMediaCMS(d);
+  initLogoCMS(d);
+}
+
+function closeCMS(){ document.getElementById('cms-overlay').classList.remove('open'); }
+function handleOverlayClick(e){ if(e.target.id==='cms-overlay') closeCMS(); }
+
+function cmsTab(id, btn){
+  document.querySelectorAll('.cms-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('cms-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── Photo upload handlers ──
+function handleAboutPhoto(input){
+  const file = input.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    const url = e.target.result;
+    // Update preview in CMS
+    const prev = document.getElementById('about-photo-preview');
+    let img = prev.querySelector('img');
+    if(!img){ img=document.createElement('img'); prev.insertBefore(img, prev.firstChild); }
+    img.src=url; img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+    prev.querySelector('.photo-preview-label').style.opacity='0.7';
+    document.getElementById('c-about-photo').value = url;
+    // Save to state & render immediately
+    const d = loadData();
+    d['about-photo'] = url;
+    saveData(d);
+    const aboutImg = document.getElementById('w-about-img');
+    const aboutPlaceholder = document.getElementById('w-about-placeholder');
+    if(aboutImg){ aboutImg.src=url; aboutImg.style.display='block'; }
+    if(aboutPlaceholder) aboutPlaceholder.style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function previewAboutPhotoFromUrl(url){
+  const prev = document.getElementById('about-photo-preview');
+  if(!url){ let img=prev.querySelector('img'); if(img) img.remove(); return; }
+  let img = prev.querySelector('img');
+  if(!img){ img=document.createElement('img'); prev.insertBefore(img, prev.firstChild); }
+  img.src=url; img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+}
+
+
+function saveAll(){
+  const d = loadData();
+  const fields = ['bizname','pagetitle','tagline','year','s1n','s1l','s2n','s2l','s3n','s3l',
+    'h1','h2','h3','hdesc','hbtn1','hbtn2','about-t1','about-t2','about-t3','about-photo',
+    'adesc','f1','f2','f3','f4','addr','hours','email1','email2','phone1','phone2','formspree','fb','ig','li',
+    'sec-about','sec-services','svc-h1','svc-h2','cta-text','cta-em','navbtn'];
+  fields.forEach(k=>{ const el=document.getElementById('c-'+k); if(el) d[k]=el.value; });
+
+  d.services = d.services.map((_,i)=>({
+    name: document.getElementById('svc-name-'+i)?.value || d.services[i].name,
+    desc: document.getElementById('svc-desc-'+i)?.value || d.services[i].desc
+  }));
+
+  // Save colors
+  d.colors = getCurrentColors();
+  // Save media
+  getMediaFromCMS(d);
+  // Save logo
+  d.logoMode = getLogoModeFromCMS();
+  d.logoUrl = getLogoUrlFromCMS(d);
+  d.logoHeight = parseInt(document.getElementById('c-logo-height')?.value||40);
+
+  saveData(d);
+  renderWebsite(getLangData(d));
+  showToast();
+}
+
+function showToast(){
+  const t = document.getElementById('cms-toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// ── Export HTML ──
+function exportHTML(){
+  // Simpan semua perubahan dulu sebelum export
+  saveAll();
+  const d = loadData();
+  // Reset window._CMS_DATA ke null agar saat file dibuka ulang, dia load dari DEFAULT (yang sudah di-bake)
+  const htmlContent = document.documentElement.outerHTML
+    .replace(/const DEFAULT = \{[\s\S]*?\};/, 
+      'const DEFAULT = ' + JSON.stringify(d, null, 2) + ';')
+    .replace(/window\._CMS_DATA = null;/, 'window._CMS_DATA = null; // baked');
+  const blob = new Blob([htmlContent], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (d.bizname || 'website').replace(/\s+/g,'-').toLowerCase() + '.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ══════════════════════════════
+// INIT
+// ══════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  const d=loadData();
+  if(d.colors) applyColors(d.colors);
+  renderWebsite(getLangData(d));
+  applyStaticI18n();
+});
+</script>
+
+<!-- ══════════════════════════════
+     GOOGLE ANALYTICS (GA4)
+     Measurement ID: G-XCK0N9JB4T
+     ══════════════════════════════ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCK0N9JB4T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XCK0N9JB4T');
+
+  // ── Event khusus section Layanan ──
+  (function(){
+    const triggers = [
+      document.getElementById('w-nav-services'),
+      document.getElementById('w-footer-nav-services'),
+      document.getElementById('w-hbtn1') // tombol "Lihat Layanan" di hero
+    ].filter(Boolean);
+
+    // Track klik ke tab/link Layanan
+    triggers.forEach(el => {
+      el.addEventListener('click', function(){
+        gtag('event', 'click_services_tab', {
+          event_category: 'engagement',
+          event_label: 'Layanan'
+        });
+      });
+    });
+
+    // Track saat section Layanan benar-benar terlihat di layar (scroll)
+    const section = document.getElementById('services');
+    if(section && 'IntersectionObserver' in window){
+      let counted = false;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting && !counted){
+            counted = true;
+            gtag('event', 'view_services_section', {
+              event_category: 'engagement',
+              event_label: 'Layanan'
+            });
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      observer.observe(section);
+    }
+  })();
+</script>
+
+</body></html>

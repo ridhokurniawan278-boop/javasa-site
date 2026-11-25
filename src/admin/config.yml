@@ -1,0 +1,34 @@
+# ============================================================
+# GANTI "USERNAME/NAMA-REPO" dengan repo GitHub Anda,
+# contoh: kurniawan/javasahevaraya-site
+# ============================================================
+backend:
+  name: github
+  repo: ridhokurniawan278-boop/javasa-site
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+locale: id
+publish_mode: editorial_workflow   # draft -> review -> publish. Hapus baris ini jika ingin langsung publish.
+media_folder: src/assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: blog
+    label: Artikel Blog
+    label_singular: Artikel
+    folder: src/blog/posts
+    create: true
+    extension: md
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: [date, title]
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: Judul, name: title, widget: string }
+      - { label: Tanggal terbit, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "DD/MM/YYYY", time_format: "HH:mm" }
+      - { label: Ringkasan (tampil di daftar blog & Google), name: description, widget: text }
+      - { label: Gambar sampul, name: image, widget: image, required: false }
+      - { label: Tag, name: tags, widget: list, required: false, default: [] }
+      - { label: Draft (centang = belum tayang), name: draft, widget: boolean, default: false }
+      - { label: Isi artikel, name: body, widget: markdown }

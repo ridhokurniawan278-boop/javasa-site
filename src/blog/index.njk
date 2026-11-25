@@ -1,0 +1,30 @@
+---
+layout: base.njk
+title: Blog
+description: Artikel dan informasi seputar visa, izin tinggal, dan keimigrasian di Indonesia.
+permalink: /blog/
+---
+<section class="hero"><div class="wrap">
+  <div class="eye">Blog</div>
+  <h1>Informasi &amp; <em>Panduan Keimigrasian</em></h1>
+  <p>Artikel terbaru seputar visa, izin tinggal, dan pengurusan dokumen keimigrasian.</p>
+</div></section>
+<main class="wrap">
+{% if collections.posts.length %}
+  <div class="posts">
+  {% for p in collections.posts %}
+    <a class="pcard" href="{{ p.url }}">
+      {% if p.data.image %}<img src="{{ p.data.image }}" alt="" loading="lazy">{% endif %}
+      <div class="pb">
+        <div class="pmeta">{{ p.date | tanggal }}</div>
+        <h2>{{ p.data.title }}</h2>
+        <p>{{ p.data.description }}</p>
+        <span class="learn">Baca selengkapnya →</span>
+      </div>
+    </a>
+  {% endfor %}
+  </div>
+{% else %}
+  <p class="empty">Belum ada artikel. Segera hadir.</p>
+{% endif %}
+</main>

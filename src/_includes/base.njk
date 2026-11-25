@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<title>{{ title }} | Javasahevaraya</title>
+{% if description %}<meta name="description" content="{{ description }}">{% endif %}
+<meta property="og:type" content="{{ ogType or 'website' }}">
+<meta property="og:title" content="{{ title }} | Javasahevaraya">
+{% if description %}<meta property="og:description" content="{{ description }}">{% endif %}
+{% if image %}<meta property="og:image" content="{{ image }}">{% endif %}
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/blog.css">
+</head>
+<body>
+<div class="top"><div class="addr">📍 Wisma GKBI, Lantai 6 Suites 607 Jl. Jend. Sudirman Kav 28, Jakarta Pusat 10210 &nbsp; ⏰ <span id="hours">Sen–Jum: 08.30–17.30</span></div><div></div></div>
+<nav><a href="/"><img class="logo" src="/javasahevaraya_img1c.png" alt="Javasa"></a><div class="nav"><ul><li><a href="/index.html#about">Tentang</a></li><li><a href="/layanan.html">Layanan</a></li><li><a href="/blog/" class="active">Blog</a></li><li><a href="/index.html#contact">Kontak</a></li></ul><a class="btn" href="/index.html#contact">Hubungi Kami</a></div></nav>
+{{ content | safe }}
+<section class="cta"><h2>Butuh Konsultasi? <em>Tim Kami Siap Membantu</em></h2><a class="btn" href="/index.html#contact">Hubungi Kami</a></section>
+<footer>© {{ site.year }} Javasahevaraya. Hak cipta dilindungi.</footer>
+</body>
+</html>
