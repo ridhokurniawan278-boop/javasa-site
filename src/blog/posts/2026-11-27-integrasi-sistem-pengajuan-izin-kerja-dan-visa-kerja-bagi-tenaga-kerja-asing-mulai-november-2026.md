@@ -1,7 +1,7 @@
 ---
 title: Integrasi Sistem Pengajuan Izin Kerja dan Visa Kerja bagi Tenaga Kerja
   Asing Mulai November 2026
-date: 2026-11-27T14:11:00+07:00
+date: 2026-11-27T14:49:00+07:00
 description: Pemerintah Indonesia memperkenalkan sistem terintegrasi untuk
   administrasi dan perizinan Tenaga Kerja Asing (TKA) melalui platform OSS
   (Online Single Submission). Integrasi ini bertujuan untuk menyederhanakan
