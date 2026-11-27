@@ -1,7 +1,7 @@
 ---
 title: Indonesia to Integrate Working Permit and Working Visa Application
   Through OSS Starting November 2026
-date: 2026-11-27T10:14:00+07:00
+date: 2026-11-27T10:27:00+07:00
 description: Indonesia is introducing an integrated system for foreign worker
   (TKA) administration and licensing through the OSS (Online Single Submission)
   platform, aiming to streamline the process of obtaining key documents,
