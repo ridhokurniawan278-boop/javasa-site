@@ -6,7 +6,7 @@ description: Pemerintah Indonesia memperkenalkan sistem terintegrasi untuk
   administrasi dan perizinan Tenaga Kerja Asing (TKA) melalui platform OSS
   (Online Single Submission). Integrasi ini bertujuan untuk menyederhanakan
   proses pengurusan berbagai dokumen perizinan ketenagakerjaan dan keimigrasian,
-  termasuk Hasil Penilaian Kelayakan, Pengesahan RPTKA, dan visa kerja.
+  termasuk Hasil Penilaian Kelayakan, Pengesahan RPTKA, dan visa kerja/VITAS
 tags:
   - RegulasiTerbaru
 draft: false
