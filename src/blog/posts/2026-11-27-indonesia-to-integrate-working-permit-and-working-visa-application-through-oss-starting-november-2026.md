@@ -23,7 +23,7 @@ Previously, working permit in the form of[ *Hasil Penilaian Kelayakan* and *Peng
 
 Once the required working permit have been issued, employers will need to proceed through separate Immigration platform, namely [Molina/Visa Online](https://evisa.imigrasi.go.id/). 
 
-The integration between the two systems  beforehand was mainly facilitated through the foreign worker permit registration number, which was required for the subsequent visa application process.
+The integration between the two systems beforehand was mainly facilitated through the foreign worker permit registration number, which was required for the subsequent visa application process.
 
 The new integration introduces a more comprehensive connection between the both system for streamlining the process.
 
@@ -35,7 +35,7 @@ The system integrated [SIAPKerja](https://siapkerja.kemnaker.go.id/) platform by
 
 Through this integration, employers can monitor and proceed the relevant foreign worker licensing application through one integrated platform rather than jumping to applications separately across different government systems.
 
-However, each ministries will continue to handle their own assessment, verification, and approval processes through their integrated systems. 
+However, every ministry will continue to handle their own assessment, verification, and approval processes through their integrated systems. 
 
 **What Does This Mean for Companies Employing Foreign Workers?**
 
